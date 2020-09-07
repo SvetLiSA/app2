@@ -1,0 +1,12 @@
+<div class="content" role="main">
+    <h2>{{title}}</h2><br>
+
+    <div class="card-body" *ngIf="dgroups">
+      <p-card *ngFor="let gruppa of dgroups">
+              <a [title]="gruppa.name + ' состав'" [routerLink]="['/formsingr/', gruppa.id]">
+                {{ gruppa.name }}
+              </a>
+      </p-card>
+    </div>  
+
+</div>

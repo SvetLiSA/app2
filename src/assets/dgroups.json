@@ -1,0 +1,16 @@
+﻿{
+    "data": [
+        { "active_tip":true, "cor_tip":"I", "date_create":"2020-07-16", "date_delete":"",
+          "fk_obj_group":"1", "id":"1", "id_author_create":"user1", "id_author_delete":"", "id_dor":"61",
+          "name":"gruppa 1 test", "obj_type":"G", "pos":1, "privilege":"vk" },   
+        {"active_tip":true, "cor_tip":"I", "date_create":"2020-07-16", "date_delete":"",
+          "fk_obj_group":"1", "id":"2", "id_author_create":"user1", "id_author_delete":"", "id_dor":"61",
+          "name":"gruppa 2 test", "obj_type":"G", "pos":2, "privilege":"vk" }, 
+        {"active_tip":true, "cor_tip":"I", "date_create":"2020-07-16", "date_delete":"",
+          "fk_obj_group":"1", "id":"3", "id_author_create":"user1", "id_author_delete":"", "id_dor":"61",
+          "name":"gruppa 3 test", "obj_type":"G", "pos":3, "privilege":"vk" }, 
+        {"active_tip":true, "cor_tip":"I", "date_create":"2020-07-16", "date_delete":"",
+          "fk_obj_group":"1", "id":"4", "id_author_create":"user2", "id_author_delete":"", "id_dor":"61",
+          "name":"gruppa 4 test", "obj_type":"G", "pos":4, "privilege":"vk" }     
+    ]
+}

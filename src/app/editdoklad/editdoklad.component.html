@@ -1,0 +1,39 @@
+<div class="content" role="main">
+    <h2>{{title}}</h2><br> 
+
+    <div class="dokl-list" *ngIf="doklads">
+        <p-card *ngFor="let doklad of doklads">  
+    
+            <p-toolbar-group-left>
+                <p-button icon="pi pi-pencil" title='Переименовать доклад' (click)="renameDoklad()" styleClass="p-button-primery"></p-button>&nbsp;
+                <p-button icon="pi pi-angle-double-right" title='Переместить доклад' (click)="moveDoklad()"  styleClass="p-button-primery"></p-button>&nbsp;
+                <p-button icon="pi pi-eye" title='Опубликовать доклад' (click)="pubDoklad()" styleClass="p-button-primery"></p-button>&nbsp;
+                <p-button icon="pi pi-eye-slash" title='Снять с публикации доклад' (click)="unpubDoklad()" styleClass="p-button-primery"></p-button>&nbsp; 
+                <p-button icon="pi pi-times" title='Удалить доклад' (click)="delDoklad()" styleClass="p-button-primery"></p-button>&nbsp;                       
+            </p-toolbar-group-left>
+
+            <ul>
+                <li> <b>ID доклада:</b> {{doklad.id}} </li>
+                <li> <b>ID цепочки доклада:</b> {{doklad.idDokladChain}} </li>
+                <li> <b>ID группы:</b> {{doklad.fkObjGroup}}  </li>
+                <li> <b>ID дороги:</b> {{doklad.idDor}} </li>
+                <li> <b>Позиция в группе:</b> {{doklad.groupPos}} </li>
+                <li> <b>Краткое название:</b> {{doklad.shortName}} </li>
+                <li> <b>Полное название:</b> {{doklad.fullName}} </li>
+                <li> <b>Заказчик:</b> {{doklad.customer}} </li>
+                <li> <b>Автор:</b> {{doklad.idAuthor}} </li>
+                <li> <b>Признак действия:</b> {{doklad.activeTip}} </li>
+                <li> <b>Признак публикации:</b> {{doklad.visibleTip}} </li>
+                <li> <b>Права:</b> {{doklad.privilege}} </li>
+                <li> <b>Версия:</b> {{doklad.version}} </li>
+                <li> <b>Начало:</b> {{doklad.dateStart}} </li>
+                <li> <b>Конец:</b> {{doklad.dateEnd}} </li>
+                <li> <b>Создан:</b> {{doklad.dateCreate}} </li>
+                <li> <b>Удалён:</b> {{doklad.dateDelete}} </li>
+                <li> <b>Тип:</b> {{doklad.corTip}} </li>
+                <li> <b>Оглавление:</b> {{doklad.listDokladOgl}} </li>
+            </ul>
+            
+        </p-card>
+    </div>
+</div>

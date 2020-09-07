@@ -1,0 +1,16 @@
+<div class="content" role="main">
+    <h2>{{title}}</h2><br>    
+    <p> 
+        <p-selectButton [options]="options" (onChange)="paramChange($event)" [(ngModel)]="values"></p-selectButton>
+    </p>
+    <div class="dokl-list" *ngIf="doklads">
+        <p-card *ngFor="let doklad of doklads">
+          <p-toolbar-group-left>
+              <p-button icon="pi pi-list" title='Изменить состав доклада' [routerLink]="['/newdoklad/', doklad.id]" styleClass="p-button-primery"></p-button>&nbsp;
+              <p-button icon="pi pi-cog" title='Изменить параметры доклада' [routerLink]="['/editdoklad/', doklad.id]" styleClass="p-button-primery"></p-button>&nbsp;
+              <p-button icon="pi pi-eye" title='Просмотреть файл доклада'   [routerLink]="['/prosmotr/', doklad.id]" styleClass="p-button-primery"></p-button>&nbsp;                        
+          </p-toolbar-group-left>
+          {{doklad.fullName}}
+        </p-card>
+    </div>
+</div>

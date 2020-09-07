@@ -1,0 +1,14 @@
+<!-- Toolbar -->
+<div class="toolbar" role="banner">
+  <div class="spacer"></div>
+  <a routerLink="/home" routerLinkActive="active">ГЛАВНАЯ</a><div class="spacer"></div>
+  <a routerLink="/allgroups" routerLinkActive="active">ДОКЛАДЫ</a><div class="spacer"></div>
+  <a routerLink="/newdoklad" routerLinkActive="active">КОНСТРУКТОР</a><div class="spacer"></div>
+  <a routerLink="/editdoklad" routerLinkActive="active" pTooltip="Изменение параметров доклада доступно только при выборе конкретного доклада">УПРАВЛЕНИЕ</a><div class="spacer"></div>
+  <a routerLink="/prosmotr" routerLinkActive="active" pTooltip="Просмотр файла доклада доступен только при выборе конкретного доклада">ПРОСМОТР</a><div class="spacer"></div>
+  <div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div>
+  <a routerLink="/notauth" routerLinkActive="active">ВЫХОД</a>
+  <div class="spacer"></div>
+</div>
+
+<router-outlet></router-outlet>

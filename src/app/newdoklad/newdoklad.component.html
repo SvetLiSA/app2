@@ -1,0 +1,35 @@
+<div class="content" role="main">
+  <form [formGroup]="newdoklForm" (ngSubmit)="onSubmit()">
+
+    <h5></h5>    
+    <p-pickList #pl [source]="listExistingForms" [target]="listSelectedForms" sourceHeader="Доступные для выбора отчёты" targetHeader="Выбранные отчёты в составе доклада" dragdrop="true" filterBy="name" [style]="{'max-width': '100%', 'overflow':'auto'}">
+      <ng-template let-forms pTemplate="item">
+          <div>
+            Отчёт "{{forms.name}}" создан {{forms.dateStart}} 
+          </div>
+      </ng-template>
+    </p-pickList>
+    
+  <div *ngFor="let doklad of doklads">
+    <h5>Полное название доклада</h5>
+    <input type="text" pInputText [(ngModel)]="doklad.fullName" id="fullName" value="{{doklad.fullName}}" [style]="{'width':'600px'}"> 
+
+    <h5>Краткое название доклада</h5>
+    <input type="text" pInputText [(ngModel)]="doklad.shortName" id="shortName" value="{{doklad.shortName}}" [style]="{'width':'600px'}"> 
+
+    <h5>Группа доклада</h5>
+    <p-dropdown [options]="dgroups" [(ngModel)]="dgroups" id="fkObjGroup" placeholder="Выбрать группу" [group]="true" [virtualScroll]="true" itemSize="30" [style]="{'width':'600px'}"></p-dropdown>
+    
+    <h5>Позиция доклада в группе</h5>
+    <p-inputNumber [(ngModel)]="doklad.groupPos" id="groupPos" value="{{doklad.groupPos}}" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+    decrementButtonClass="p-button-primary" incrementButtonClass="p-button-primary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"></p-inputNumber>
+
+
+
+  </div>
+    <button type="submit" pButton  label="Сохранить" [disabled]="!newdoklForm.valid"></button>
+
+
+  </form>
+  
+</div>
