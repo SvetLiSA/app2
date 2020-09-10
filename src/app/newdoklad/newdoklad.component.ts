@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+//import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { DgroupsService } from '../services/dgroups.service';
 import { DokladsService } from '../services/doklads.service';
-import { Dgroups } from '../models/dgroups';
+import { Dgroups, Dgroupsel } from '../models/dgroups';
 import { Doklads } from '../models/doklads';
+//import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-newdoklad',
@@ -13,167 +14,117 @@ import { Doklads } from '../models/doklads';
   styleUrls: ['./newdoklad.component.css']
 })
 export class NewdokladComponent implements OnInit {
-  id: string;
+  id: string="0";
   listExistingForms: any[];
-  listSelectedForms: any[];
+  listSelectedForms: any[]= new Array();
+  listDokladOgl: any[]= new Array();
   todayDate : string;
   dgroups:Dgroups[];
+  dgroupsel:Dgroupsel[];
   doklads:Doklads[];
-  selectedGroup: string;
-
-  newdoklForm = new FormGroup({
-    'fkObjGroup' : new FormControl('', Validators.required),
-    'fullName' : new FormControl('', Validators.required),
-    'shortName' : new FormControl('', Validators.required),
-    'groupPos' : new FormControl('', Validators.required)
-  });
+  selectedGroup: string="1";
+  privilegesel: any;
+  selectedPrivilege: string="КТ";
+  version: string="1.0";
+  dateStart: string="2020-09-01";
+  dateEnd: string="2100-12-31 00:00:00";
+  
+  onSubmit() {
+    this.listDokladOgl=this.listSelectedForms;
+    console.log(this.doklads); 
+    console.log(this.listSelectedForms); 
+  }
 
   constructor(private route: ActivatedRoute, private dgroupService : DgroupsService, private dokladService : DokladsService, private datePipe: DatePipe) { 
     this.id = route.snapshot.params['id'];
-    this.todayDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd h:i:s');
-   }
-
-  ngOnInit(): void {
-    this.dokladService.getDoklad(this.id);
-    this.dgroupService.getAllDgroups(true, this.todayDate);
-    
-
-    //--------------------------------------
+    this.todayDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd H:mm:ss');
+    this.dateStart = this.datePipe.transform(new Date(), 'yyyy-MM-dd H:mm:ss');
     this.doklads=[{
-      "id": "8a488b44740b8ec701740b8fe5e30000",    
-      "idDokladChain": "889d5d92-48aa-440f-9f86-bfa0e9451c8d",    
+      "id": null,    
+      "idDokladChain": null,    
       "fkObjGroup": "1",    
-      "idDor": "17",
+      "idDor": null,
       "groupPos": 1,    
-      "shortName": "short Name",    
-      "fullName": "full Name",    
-      "customer": "customer",    
-      "idAuthor": "idAuthor",
+      "shortName": "Доклад, краткое название",    
+      "fullName": "Доклад, полное название",    
+      "customer": "Ф.И.О. заказчика, №приказа, контакты",    
+      "idAuthor": null,
       "activeTip": null,    
       "visibleTip": true,    
       "privilege": null,    
       "version": "1.0",    
-      "dateStart": "2020-08-17 12:44:35",
-      "dateEnd": "2020-08-22 12:44:35",    
-      "dateCreate": "2020-08-20 14:10:13",    
+      "dateStart": this.dateStart,
+      "dateEnd": this.dateEnd,    
+      "dateCreate": this.dateStart,    
       "dateDelete": null,    
       "corTip": "I",    
       "listDokladOgl": null
-    }];
+    }]; //рыба нового доклада
+   }
 
-    this.dgroups=[
-        {
-          "id": "8a488b44739ff16201739ff1a3530000",
+  ngOnInit(): void {
+    this.dokladService.getDoklad(this.id);
+    this.dgroupService.getAllDgroups(true, this.todayDate, 'doklad');     
+ 
+    this.privilegesel=[
+      {label:"Общий доступ", value:"Общий доступ"},
+      {label:"КТ", value:"КТ"}
+    ];
+    //-------------------------------------- 
+    
+    this.doklads=[{
+        "id": "8a488b44740b8ec701740b8fe5e30000",    
+        "idDokladChain": "889d5d92-48aa-440f-9f86-bfa0e9451c8d",    
+        "fkObjGroup": "1",    
+        "idDor": "17",
+        "groupPos": 1,    
+        "shortName": "short Name",    
+        "fullName": "full Name",    
+        "customer": "customer",    
+        "idAuthor": "idAuthor",
+        "activeTip": null,    
+        "visibleTip": true,    
+        "privilege": null,    
+        "version": "1.0",    
+        "dateStart": "2020-08-17 12:44:35",
+        "dateEnd": "2020-08-22 12:44:35",    
+        "dateCreate": "2020-08-20 14:10:13",    
+        "dateDelete": null,    
+        "corTip": "I",    
+        "listDokladOgl": [{
+          "id": "1",
+          "idFormChain": "1",
           "fkObjGroup": "1",
-          "objType": "2",
-          "name": "2",
+          "idDor": "1",
           "pos": 1,
-          "idDor": "2",
-          "idAuthorCreate": "2",
-          "idAuthorDelete": "2",
-          "activeTip": false,
-          "privilege": null,
-          "dateCreate": "2020-07-30 13:11:02",
-          "dateDelete": null,
-          "corTip": "I",
-          "listChildrenObjGroup": []
-        },
-        {
-          "id": "8a488b44739ff16201739ff22d0e0001",
-          "fkObjGroup": "1",
-          "objType": "2",
-          "name": "s555",
-          "pos": 1,
-          "idDor": "2",
-          "idAuthorCreate": "2",
-          "idAuthorDelete": "2",
-          "activeTip": false,
-          "privilege": null,
-          "dateCreate": "2020-07-30 13:11:02",
-          "dateDelete": null,
-          "corTip": "I",
-          "listChildrenObjGroup": []
-        },
-        {
-          "id": "8a488b4473a026e40173a02b306b0000",
-          "fkObjGroup": "1",
-          "objType": "2",
-          "name": "2",
-          "pos": 1,
-          "idDor": "2",
-          "idAuthorCreate": "2",
-          "idAuthorDelete": "2",
-          "activeTip": false,
-          "privilege": null,
-          "dateCreate": "2020-07-30 13:11:02",
-          "dateDelete": null,
-          "corTip": "I",
-          "listChildrenObjGroup": []
-        },
-        {
-          "id": "8a488b4473a1a4b20173a1a614de0004",
-          "fkObjGroup": "1",
-          "objType": "string",
-          "name": "string",
-          "pos": 0,
-          "idDor": "string",
-          "idAuthorCreate": "string",
-          "idAuthorDelete": "string",
+          "name": "1",
+          "description": "1",
+          "typeForm": "1",
+          "idAuthor": "1",
           "activeTip": true,
+          "visibleTip": null,
           "privilege": null,
-          "dateCreate": "2020-07-30 15:35:07",
+          "version": "1",
+          "dateStart": "2020-07-27 13:45:00",
+          "dateEnd": "2020-07-29 13:45:00",
+          "dateCreate": "2020-09-29 13:45:00",
           "dateDelete": null,
           "corTip": "I",
-          "listChildrenObjGroup": []
-        },
-        {
-          "id": "8a488b4473e23aa80173e23c4bfd0001",
-          "fkObjGroup": "1",
-          "objType": "string",
-          "name": "string",
-          "pos": 0,
-          "idDor": "string",
-          "idAuthorCreate": "string",
-          "idAuthorDelete": "string",
-          "activeTip": true,
-          "privilege": null,
-          "dateCreate": "2020-08-12 10:32:52",
-          "dateDelete": null,
-          "corTip": "I",
-          "listChildrenObjGroup": []
-        },
-        {
-          "id": "8a488b4473e23d310173e23d48be0000",
-          "fkObjGroup": "1",
-          "objType": "string",
-          "name": "string",
-          "pos": 0,
-          "idDor": "string",
-          "idAuthorCreate": "string",
-          "idAuthorDelete": "string",
-          "activeTip": true,
-          "privilege": null,
-          "dateCreate": "2020-08-12 10:32:52",
-          "dateDelete": null,
-          "corTip": "I",
-          "listChildrenObjGroup": []
-        },
-        {
-          "id": "8a488b4473e240420173e2405d750000",
-          "fkObjGroup": "1",
-          "objType": "string",
-          "name": "string",
-          "pos": 0,
-          "idDor": "string",
-          "idAuthorCreate": "string",
-          "idAuthorDelete": "string",
-          "activeTip": true,
-          "privilege": null,
-          "dateCreate": "2020-08-12 10:32:52",
-          "dateDelete": null,
-          "corTip": "I",
-          "listChildrenObjGroup": []
-        }
+          "listFormMark": [],
+          "listNumericalPokValue": []
+        }]
+      }];
+      
+
+      this.selectedGroup=this.doklads[0].fkObjGroup;
+      this.selectedPrivilege=this.doklads[0].privilege;
+      this.listSelectedForms.push(this.doklads[0].listDokladOgl);
+
+
+    this.dgroupsel=[
+        { "label": "10",          "value": "1"        },
+        { "label": "8a488b44739ff16201739ff22d0e0001",          "value": "2"        },
+        { "label": "8a488b4473a026e40173a02b306b0000",          "value": "3"        }
       ];
 
     this.listExistingForms = [
@@ -290,8 +241,4 @@ export class NewdokladComponent implements OnInit {
     this.listSelectedForms = [];
   }
 
-  onSubmit() {
-    // TODO: Use EventEmitter with form value  
-    console.warn(this.newdoklForm.value);
-  }
 }

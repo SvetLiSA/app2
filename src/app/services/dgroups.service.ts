@@ -8,7 +8,7 @@ export class DgroupsService {
   
   constructor(private httpClient: HttpClient) { }
 
-  getAllDgroups(isIncludedDel:boolean,dateReport:string): void {
+  getAllDgroups(isIncludedDel:boolean,dateReport:string,typeTreeElements:string): void {
     //isIncludedDel
     //dateReport
     this.httpClient.get<Dgroups[]>(`${environment.apiUrl}/objGroup/getAllCentralGroup`).subscribe( data => {

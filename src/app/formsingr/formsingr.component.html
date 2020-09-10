@@ -1,7 +1,7 @@
 <div class="content" role="main">
     <h2>{{title}}</h2><br>    
     <p> 
-        <p-selectButton [options]="options" (onChange)="paramChange($event)" [(ngModel)]="values"></p-selectButton>
+        <p-selectButton [options]="tabs" (onChange)="paramChange($event)" [(ngModel)]="tabvalues"></p-selectButton>
     </p>
     <div class="dokl-list" *ngIf="doklads">
         <p-card *ngFor="let doklad of doklads">

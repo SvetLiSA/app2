@@ -1,34 +1,76 @@
 <div class="content" role="main">
-  <form [formGroup]="newdoklForm" (ngSubmit)="onSubmit()">
+  <form  (ngSubmit)="onSubmit()">
 
     <h5></h5>    
-    <p-pickList #pl [source]="listExistingForms" [target]="listSelectedForms" sourceHeader="Доступные для выбора отчёты" targetHeader="Выбранные отчёты в составе доклада" dragdrop="true" filterBy="name" [style]="{'max-width': '100%', 'overflow':'auto'}">
+    <p-pickList #pl [source]="listExistingForms" [target]="listSelectedForms" 
+    sourceFilterPlaceholder="Поиск по названию отчёта" targetFilterPlaceholder="Поиск по названию отчёта"
+    sourceHeader="Доступные для выбора отчёты" 
+    targetHeader="Выбранные отчёты в составе доклада" 
+    dragdrop="true" filterBy="name" 
+    [style]="{'max-width': '100%', 'overflow':'auto'}" 
+    [sourceStyle]="{'height':'200px'}" [targetStyle]="{'height':'200px'}">
       <ng-template let-forms pTemplate="item">
-          <div>
+          <div style="font-size:12px;float:left;margin:5px 5px 0 0">
             Отчёт "{{forms.name}}" создан {{forms.dateStart}} 
           </div>
       </ng-template>
     </p-pickList>
     
-  <div *ngFor="let doklad of doklads">
-    <h5>Полное название доклада</h5>
-    <input type="text" pInputText [(ngModel)]="doklad.fullName" id="fullName" value="{{doklad.fullName}}" [style]="{'width':'600px'}"> 
+  <div>
+    <div *ngFor="let doklad of doklads">
+      <div>
 
-    <h5>Краткое название доклада</h5>
-    <input type="text" pInputText [(ngModel)]="doklad.shortName" id="shortName" value="{{doklad.shortName}}" [style]="{'width':'600px'}"> 
-
-    <h5>Группа доклада</h5>
-    <p-dropdown [options]="dgroups" [(ngModel)]="dgroups" id="fkObjGroup" placeholder="Выбрать группу" [group]="true" [virtualScroll]="true" itemSize="30" [style]="{'width':'600px'}"></p-dropdown>
+        <h5>Полное название доклада</h5>
+        <input type="text" pInputText [(ngModel)]="doklad.fullName" name="fullName" value="{{doklad.fullName}}" [style]="{'width':'600px'}"> 
     
-    <h5>Позиция доклада в группе</h5>
-    <p-inputNumber [(ngModel)]="doklad.groupPos" id="groupPos" value="{{doklad.groupPos}}" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
-    decrementButtonClass="p-button-primary" incrementButtonClass="p-button-primary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"></p-inputNumber>
+        <h5>Краткое название доклада</h5>
+        <input type="text" pInputText [(ngModel)]="doklad.shortName" name="shortName" value="{{doklad.shortName}}" [style]="{'width':'600px'}"> 
 
+        <h5>Заказчик доклада</h5>
+        <input type="text" pInputText [(ngModel)]="doklad.customer" name="customer" value="{{doklad.customer}}" [style]="{'width':'600px'}"> 
 
+        <h5>Группа доклада</h5>
+        <p-dropdown [options]="dgroupsel"  [(ngModel)]="doklad.fkObjGroup" name="fkObjGroup" id="{{selectedGroup}}" filter="true" placeholder="Выберите группу" [style]="{'width':'600px'}">
+            <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
+            </ng-template>
+            <ng-template let-gr pTemplate="item">
+                <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+                    <div style="font-size:14px;margin-top:4px">{{gr.label}}</div>
+                </div>
+            </ng-template>
+        </p-dropdown>
+    
+        <h5>Позиция доклада в группе</h5>
+        <p-inputNumber [(ngModel)]="doklad.groupPos" name="groupPos" value="{{doklad.groupPos}}" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+        decrementButtonClass="p-button-primary" incrementButtonClass="p-button-primary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"></p-inputNumber>
 
-  </div>
-    <button type="submit" pButton  label="Сохранить" [disabled]="!newdoklForm.valid"></button>
+        <h5>Права</h5>
+        <p-dropdown [options]="privilegesel" [(ngModel)]="doklad.privilege" name="privilege" id="{{selectedPrivilege}}" filter="true" placeholder="Выберите права" [style]="{'width':'600px'}">
+            <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
+            </ng-template>
+            <ng-template let-pr pTemplate="item">
+                <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+                    <div style="font-size:14px;margin-top:4px">{{pr.label}}</div>
+                </div>
+            </ng-template>
+        </p-dropdown>
+    
+        <h5>Версия доклада</h5>
+        <input type="text" pInputText [(ngModel)]="doklad.version" name="version" value="{{doklad.version}}" [style]="{'width':'600px'}"> 
+    
+        <h5>Дата начала действия доклада</h5>
+        <input type="text" pInputText [(ngModel)]="doklad.dateStart" name="dateStart" value="{{doklad.dateStart}}" [style]="{'width':'600px'}"> 
 
+        <h5>Дата окончания действия доклада</h5>
+        <input type="text" pInputText [(ngModel)]="doklad.dateEnd" name="dateEnd" value="{{doklad.dateEnd}}" [style]="{'width':'600px'}"> 
+
+      </div>
+    </div>
+
+  </div><br>
+    <button type="submit" pButton  label="Сохранить"></button>
 
   </form>
   

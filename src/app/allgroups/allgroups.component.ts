@@ -20,7 +20,7 @@ export class AllgroupsComponent implements OnInit {
 
   ngOnInit() {
     this.todayDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd h:i:s');
-    this.dgroupService.getAllDgroups(true, this.todayDate); 
+    this.dgroupService.getAllDgroups(true, this.todayDate, 'doklad'); 
 
     //--------------------------------------
     this.dgroups=[{

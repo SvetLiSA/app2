@@ -16,16 +16,16 @@ export class FormsingrComponent implements OnInit {
   id: string;
   doklads:Doklads[];  
   title = 'Список докладов в группе';
-  options:SelectItem[];
-  values:any;
+  tabs:SelectItem[];
+  tabvalues:string='1';
   todayDate: string;
 
   constructor(private datePipe: DatePipe, private route: ActivatedRoute, private dokladService : DokladsService) { 
     this.id = route.snapshot.params['id'];
-    this.options = [
+    this.tabs = [
       {label: 'Активные доклады', value: '1'}, 
       {label: 'Только опубликованные', value: '2'}, 
-      {label: 'Все (с удалёнными)', value: '3'}
+      {label: 'Все (с удалёнными)', value: '3', disabled : false}
     ];
     this.todayDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd h:i:s');
   }

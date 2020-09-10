@@ -55,3 +55,13 @@ function toGroupsList(values: IGroups[]): Dgroups[]{
     return values.map(treeNode => Dgroups(listChildrenObjGroup));
 } 
 */
+
+export class Dgroupsel {
+    label: string;
+    value: string;
+
+    constructor(values: IGroups) {
+        this.label = values.name;
+        this.value = values.id;
+    }    
+}

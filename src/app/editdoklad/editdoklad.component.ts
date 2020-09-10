@@ -19,7 +19,7 @@ export class EditdokladComponent implements OnInit {
 
   constructor(private datePipe: DatePipe, private route: ActivatedRoute, private dokladService : DokladsService) {
     this.id = route.snapshot.params['id'];
-    this.todayDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd h:i:s');
+    this.todayDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd H:mm:ss');
    }
 
   ngOnInit(): void {
