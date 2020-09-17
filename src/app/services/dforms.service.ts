@@ -10,10 +10,9 @@ import { Dforms } from '../models/dforms';
 export class DformsService {
   constructor(private httpClient: HttpClient) { }
 
-  getAllDforms(id:string,isIncludedDel:boolean): void {
-    //id
-    //isIncludedDel
-    this.httpClient.get<Dforms[]>(`${environment.apiUrl}/form/getListByObjGroupId`).subscribe( data => {
+  getAllDforms(idObjGroup:string,isIncludedDel:boolean): void {
+    this.httpClient.get<Dforms[]>(`${environment.apiUrl}/form/getListByObjGroupId?idObjGroup=`+idObjGroup+`&isIncludedDel=`+isIncludedDel)
+    .subscribe( data => {
       console.log(data);
     },
     (error: HttpErrorResponse) => {
@@ -21,12 +20,17 @@ export class DformsService {
     });
   }
 
-  getPublishedDforms(id:string,isIncludedDel:boolean,isAwailable:boolean,dateReport:Date): void {
-    //id
-    //isIncludedDel
-    //isAwailable
-    //dateReport
-    this.httpClient.get<Dforms[]>(`${environment.apiUrl}/form/getListPublishedByObjGroupId`).subscribe( data => {
+  getFiles() {
+    return this.httpClient.get<Dforms[]>('assets/forms.json')
+    .toPromise()
+      .then((res) => {
+        return res;
+      });
+  }
+
+  getPublishedDforms(idObjGroup:string,isIncludedDel:boolean,isAwailable:boolean,dateReport:Date): void {
+    this.httpClient.get<Dforms[]>(`${environment.apiUrl}/form/getListPublishedByObjGroupId?idObjGroup=`+idObjGroup+`&isIncludedDel=`+isIncludedDel+`&isAwailable=`+isAwailable+`&dateReport=`+dateReport)
+    .subscribe( data => {
       console.log(data);
     },
     (error: HttpErrorResponse) => {

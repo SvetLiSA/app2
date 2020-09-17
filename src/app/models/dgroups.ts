@@ -1,4 +1,11 @@
-import { ValueTransformer } from '@angular/compiler/src/util';
+export interface ICust {
+    id?: string;
+    name?: string;
+    surName?: string;
+    secondName?: string;
+    workPosition?: string;
+    organizationName?: string;
+}
 
 export interface IGroups {
     id: string;
@@ -8,13 +15,15 @@ export interface IGroups {
     pos: number;
     idDor: string;
     idAuthorCreate: string;
+    authorCreate?: ICust;
     idAuthorDelete: string;
+    authorDelete?: ICust;
     activeTip?: boolean;
     privilege?: boolean;
     dateCreate: string;
     dateDelete?: string;
     corTip: string;
-    listChildrenObjGroup: Dgroups[];
+    listChildrenObjGroup: IGroups[];
 }
 
 export class Dgroups implements IGroups {
@@ -25,7 +34,9 @@ export class Dgroups implements IGroups {
     pos: number;
     idDor: string;
     idAuthorCreate: string;
+    authorCreate?: ICust;
     idAuthorDelete: string;
+    authorDelete?: ICust;
     activeTip?: boolean;
     privilege?: boolean;
     dateCreate: string;
@@ -33,7 +44,7 @@ export class Dgroups implements IGroups {
     corTip: string;
     listChildrenObjGroup: Dgroups[];
 
-    constructor(values: IGroups) {
+    constructor(values: Dgroups) {
         this.id = values.id;
         this.fkObjGroup = values.fkObjGroup;
         this.objType = values.objType;
@@ -41,27 +52,14 @@ export class Dgroups implements IGroups {
         this.pos = values.pos;
         this.idDor = values.idDor;
         this.idAuthorCreate = values.idAuthorCreate;
+        this.authorCreate = values.authorCreate;
         this.idAuthorDelete = values.idAuthorDelete;
+        this.authorDelete = values.authorDelete;
         this.activeTip = values.activeTip;
         this.privilege = values.privilege;
         this.dateCreate = values.dateCreate;
         this.dateDelete = values.dateDelete;
         this.corTip = values.corTip;
-        this.listChildrenObjGroup = values.listChildrenObjGroup !== undefined ? values.listChildrenObjGroup : undefined;
-    }    
-}
-/*
-function toGroupsList(values: IGroups[]): Dgroups[]{
-    return values.map(treeNode => Dgroups(listChildrenObjGroup));
-} 
-*/
-
-export class Dgroupsel {
-    label: string;
-    value: string;
-
-    constructor(values: IGroups) {
-        this.label = values.name;
-        this.value = values.id;
-    }    
+        this.listChildrenObjGroup = values.listChildrenObjGroup;
+    } 
 }

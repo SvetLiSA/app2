@@ -1,65 +1,83 @@
+export interface IlistDokladLinkForm {
+    fkDokladOgl: string;
+    id: string;
+    idFormChain: string;
+    rangeForInsert?: string;
+    reportHour?: number;
+    startPos?: number
+}
+
+export interface IlistDokladOgl {
+    fkDoklad: string;
+    id: string;
+    listDokladLinkForm: IlistDokladLinkForm[];
+    listName: string;
+    listPos: number;
+    oglName: string
+}
+
 export interface IDoklads {
-    id?: string;
-    idDokladChain?: string;
-    fkObjGroup: string;
-    idDor: string;
-    groupPos: number;
-    shortName: string;
-    fullName: string;
-    customer: string;
-    idAuthor?: string;
     activeTip?: boolean;
-    visibleTip?: boolean;
-    privilege: string;
-    version: string;
-    dateStart: string;
-    dateEnd: string;
+    corTip: string;
+    customer: string;
     dateCreate?: string;
     dateDelete?: string;
-    corTip?: string;
-    listDokladOgl?: any;
+    dateEnd: Date;
+    dateStart: Date;
+    fkObjGroup: string;
+    fullName: string;
+    groupPos: number;	
+    id?: string;	
+    idAuthor?: string;
+    idDokladChain?: string;
+    idDor: string;	
+    listDokladOgl: IlistDokladOgl[];
+    privilege: string;
+    shortName: string;
+    version: string;
+    visibleTip?: boolean
 }
 
 export class Doklads implements IDoklads {
-    id?: string;
-    idDokladChain?: string;
-    fkObjGroup: string;
-    idDor: string;
-    groupPos: number;
-    shortName: string;
-    fullName: string;
-    customer: string;
-    idAuthor?: string;
     activeTip?: boolean;
-    visibleTip?: boolean;
-    privilege: string;
-    version: string;
-    dateStart: string;
-    dateEnd: string;
+    corTip: string;
+    customer: string;
     dateCreate?: string;
     dateDelete?: string;
-    corTip?: string;
-    listDokladOgl?: any;
+    dateEnd: Date;
+    dateStart: Date;
+    fkObjGroup: string;
+    fullName: string;
+    groupPos: number;	
+    id?: string;	
+    idAuthor?: string;
+    idDokladChain?: string;
+    idDor: string;	
+    listDokladOgl: IlistDokladOgl[];
+    privilege: string;
+    shortName: string;
+    version: string;
+    visibleTip?: boolean
 
     constructor(values: IDoklads) {
-        this.id = values.id;
-        this.idDokladChain = values.idDokladChain;
-        this.fkObjGroup = values.fkObjGroup;
-        this.idDor = values.idDor;
-        this.groupPos = values.groupPos;
-        this.shortName = values.shortName;
-        this.fullName = values.fullName;
-        this.customer = values.customer;
-        this.idAuthor = values.idAuthor;
         this.activeTip = values.activeTip;
-        this.visibleTip = values.visibleTip;
-        this.privilege = values.privilege;
-        this.version = values.version;
-        this.dateStart = values.dateStart;
-        this.dateEnd = values.dateEnd;
+        this.corTip = values.corTip;
+        this.customer = values.customer;
         this.dateCreate = values.dateCreate;
         this.dateDelete = values.dateDelete;
-        this.corTip = values.corTip;
+        this.dateStart = values.dateStart;
+        this.dateEnd = values.dateEnd;
+        this.fkObjGroup = values.fkObjGroup;
+        this.fullName = values.fullName;
+        this.groupPos = values.groupPos;
+        this.id = values.id;
+        this.idAuthor = values.idAuthor;
+        this.idDokladChain = values.idDokladChain;
+        this.idDor = values.idDor;
         this.listDokladOgl = values.listDokladOgl;
+        this.privilege = values.privilege;
+        this.shortName = values.shortName;
+        this.version = values.version;
+        this.visibleTip = values.visibleTip;
     }
 }

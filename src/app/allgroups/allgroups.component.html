@@ -1,12 +1,14 @@
 <div class="content" role="main">
-    <h2>{{title}}</h2><br>
-
-    <div class="card-body" *ngIf="dgroups">
-      <p-card *ngFor="let gruppa of dgroups">
-              <a [title]="gruppa.name + ' состав'" [routerLink]="['/formsingr/', gruppa.id]">
-                {{ gruppa.name }}
-              </a>
-      </p-card>
-    </div>  
+    <div style="margin-bottom: 1rem">
+      <button pButton type="button" label="Раскрыть все" (click)="expandAll()" style="margin-right: .5rem"></button>
+      <button pButton type="button" label="Свернуть все" (click)="collapseAll()"></button>
+    </div>
+    <p-tree [value]="dgrtree" [filter]="true" [filterPlaceholder]="'Поиск...'">      
+      <ng-template let-node  pTemplate="default">
+        <a [title]="node.label + ' состав'" [routerLink]="['/formsingr/', node.data.id]">
+          {{ node.label }} {{ node.data.activeTip }}
+        </a>
+      </ng-template>
+    </p-tree> 
 
 </div>

@@ -8,19 +8,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
+import { ContextMenuModule } from 'primeng/contextmenu';
 import { DropdownModule } from 'primeng/dropdown';
+import { DialogModule } from 'primeng/dialog';
+import { FieldsetModule } from 'primeng/fieldset';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { PanelModule } from 'primeng/panel';
 import { PickListModule } from 'primeng/picklist';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { SelectItem } from 'primeng/api';
-import { SelectItemGroup } from 'primeng/api';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
-import { TreeNode } from 'primeng/api';
 
 import { DgroupsService } from './services/dgroups.service';
 import { DokladsService } from './services/doklads.service';
@@ -53,16 +58,24 @@ import { ProsmotrComponent } from './prosmotr/prosmotr.component';
     BrowserModule,
     BrowserAnimationsModule,
     ButtonModule, 
+    CalendarModule,
     CardModule,
+    ContextMenuModule,
     DropdownModule,
+    DialogModule,
+    FieldsetModule,
     FormsModule,
     HttpClientModule,
     InputTextModule,
+    InputTextareaModule,
     InputNumberModule,
+    MultiSelectModule,
     PanelModule,
     PickListModule,
     ReactiveFormsModule,
     SelectButtonModule,
+    ScrollPanelModule,
+    TableModule,
     ToolbarModule,
     TooltipModule,
     TreeModule

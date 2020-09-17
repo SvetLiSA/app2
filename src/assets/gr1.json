@@ -1,0 +1,98 @@
+﻿{
+    "id": "1",
+    "fkObjGroup": null,
+    "objType": "",
+    "name": "string",
+    "pos": 1,
+    "idDor": "1",
+    "idAuthorCreate": "1",
+    "authorCreate": {
+      "id": "1",
+      "name": "Иван",
+      "surName": "Иванов",
+      "secondName": "Иванович",
+      "workPosition": "Технолог 1 категории",
+      "organizationName": "ГВЦ ОАО \"РЖД\""
+    },
+    "idAuthorDelete": "1",
+    "authorDelete": {
+      "id": "1",
+      "name": "Иван",
+      "surName": "Иванов",
+      "secondName": "Иванович",
+      "workPosition": "Технолог 1 категории",
+      "organizationName": "ГВЦ ОАО \"РЖД\""
+    },
+    "activeTip": null,
+    "privilege": null,
+    "dateCreate": "2020-09-27 13:45:00",
+    "dateDelete": null,
+    "corTip": "I",
+    "listChildrenObjGroup": [
+      {
+        "id": "8a488b44739ff16201739ff22d0e0001",
+        "fkObjGroup": "1",
+        "objType": "doklad",
+        "name": "s666",
+        "pos": 1,
+        "idDor": "2",
+        "idAuthorCreate": "2",
+        "authorCreate": {
+          "id": "2",
+          "name": "Иван",
+          "surName": "Иванов",
+          "secondName": "Иванович",
+          "workPosition": "Технолог 1 категории",
+          "organizationName": "ГВЦ ОАО \"РЖД\""
+        },
+        "idAuthorDelete": "2",
+        "authorDelete": {
+          "id": "2",
+          "name": "Иван",
+          "surName": "Иванов",
+          "secondName": "Иванович",
+          "workPosition": "Технолог 1 категории",
+          "organizationName": "ГВЦ ОАО \"РЖД\""
+        },
+        "activeTip": false,
+        "privilege": null,
+        "dateCreate": "2020-07-30 13:11:02",
+        "dateDelete": null,
+        "corTip": "I",
+        "listChildrenObjGroup": [
+          {
+            "id": "8a488b44739fe7c701739fe8efd20002",
+            "fkObjGroup": "8a488b44739ff16201739ff22d0e0001",
+            "objType": "doklad",
+            "name": "str",
+            "pos": 7,
+            "idDor": "2",
+            "idAuthorCreate": "2",
+            "authorCreate": {
+              "id": "2",
+              "name": "Иван",
+              "surName": "Иванов",
+              "secondName": "Иванович",
+              "workPosition": "Технолог 1 категории",
+              "organizationName": "ГВЦ ОАО \"РЖД\""
+            },
+            "idAuthorDelete": "2",
+            "authorDelete": {
+              "id": "2",
+              "name": "Иван",
+              "surName": "Иванов",
+              "secondName": "Иванович",
+              "workPosition": "Технолог 1 категории",
+              "organizationName": "ГВЦ ОАО \"РЖД\""
+            },
+            "activeTip": true,
+            "privilege": null,
+            "dateCreate": "2020-07-30 13:11:02",
+            "dateDelete": "2020-08-03 13:11:02",
+            "corTip": "D",
+            "listChildrenObjGroup": []
+          }
+        ]
+      }
+    ]
+  }

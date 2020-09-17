@@ -1,8 +1,8 @@
-<div class="content" role="main">
-    <h2>{{title}}</h2><br>    
-    <p> 
-        <p-selectButton [options]="tabs" (onChange)="paramChange($event)" [(ngModel)]="tabvalues"></p-selectButton>
-    </p>
+<div class="content" role="main">    
+  <p> 
+      <p-selectButton [options]="tabs" (onChange)="paramChange($event)" [(ngModel)]="tabvalues"></p-selectButton>
+  </p>
+  <p-scrollPanel [style]="{width: '100%', height: '598px'}">
     <div class="dokl-list" *ngIf="doklads">
         <p-card *ngFor="let doklad of doklads">
           <p-toolbar-group-left>
@@ -13,4 +13,5 @@
           {{doklad.fullName}}
         </p-card>
     </div>
+  </p-scrollPanel>
 </div>

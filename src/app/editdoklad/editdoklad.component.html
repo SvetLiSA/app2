@@ -1,18 +1,17 @@
 <div class="content" role="main">
-    <h2>{{title}}</h2><br> 
-
-    <div class="dokl-list" *ngIf="doklads">
-        <p-card *ngFor="let doklad of doklads">  
-    
+    <div class="dokl-list" *ngFor="let doklad of doklads">
+      <ng-container *ngIf="doklads">
+        <p-card>      
             <p-toolbar-group-left>
-                <p-button icon="pi pi-pencil" title='Переименовать доклад' (click)="renameDoklad()" styleClass="p-button-primery"></p-button>&nbsp;
-                <p-button icon="pi pi-angle-double-right" title='Переместить доклад' (click)="moveDoklad()"  styleClass="p-button-primery"></p-button>&nbsp;
-                <p-button icon="pi pi-eye" title='Опубликовать доклад' (click)="pubDoklad()" styleClass="p-button-primery"></p-button>&nbsp;
-                <p-button icon="pi pi-eye-slash" title='Снять с публикации доклад' (click)="unpubDoklad()" styleClass="p-button-primery"></p-button>&nbsp; 
-                <p-button icon="pi pi-times" title='Удалить доклад' (click)="delDoklad()" styleClass="p-button-primery"></p-button>&nbsp;                       
+              <p-button icon="pi pi-pencil" title='Переименовать доклад' (click)="dlgRenameDoklad()" styleClass="p-button-primery"></p-button>&nbsp;
+              <p-button icon="pi pi-angle-double-right" title='Переместить доклад' (click)="dlgMoveDoklad()"  styleClass="p-button-primery"></p-button>&nbsp;
+              <p-button icon="pi pi-eye" title='Опубликовать доклад' (click)="pubDoklad()" styleClass="p-button-primery"></p-button>&nbsp;
+              <p-button icon="pi pi-eye-slash" title='Снять с публикации доклад' (click)="unpubDoklad()" styleClass="p-button-primery"></p-button>&nbsp; 
+              <p-button icon="pi pi-times" title='Удалить доклад' (click)="dlgDelDoklad()" styleClass="p-button-primery"></p-button>&nbsp;                       
             </p-toolbar-group-left>
 
-            <ul>
+            <p-scrollPanel [style]="{width: '100%', height: '534px'}">
+              <ul>
                 <li> <b>ID доклада:</b> {{doklad.id}} </li>
                 <li> <b>ID цепочки доклада:</b> {{doklad.idDokladChain}} </li>
                 <li> <b>ID группы:</b> {{doklad.fkObjGroup}}  </li>
@@ -31,9 +30,48 @@
                 <li> <b>Создан:</b> {{doklad.dateCreate}} </li>
                 <li> <b>Удалён:</b> {{doklad.dateDelete}} </li>
                 <li> <b>Тип:</b> {{doklad.corTip}} </li>
-                <li> <b>Оглавление:</b> {{doklad.listDokladOgl}} </li>
-            </ul>
-            
+              </ul>
+                <p-fieldset legend="Оглавление:" [toggleable]="true" [collapsed]=true *ngIf="doklad.listDokladOgl">
+                     <ul>
+                        <li *ngFor="let ogl of doklad.listDokladOgl"> {{ ogl.listPos }}. {{ ogl.oglName }} - {{ ogl.listName }} </li>
+                     </ul>
+                </p-fieldset>
+            </p-scrollPanel>
         </p-card>
+
+        <p-dialog header="Изменить название доклада" [(visible)]="displayM1" [modal]="true" [style]="{width: '550px'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+            <p class="p-m-10">Введите желаемое название для доклада</p>
+              <h5>Краткое название доклада</h5>
+              <input type="text" pInputText name="shortName" [(ngModel)]="doklad.shortName" [style]="{'width':'500px'}">
+              <h5>Полное название доклада</h5>
+              <input type="text" pInputText name="fullName" [(ngModel)]="doklad.fullName" [style]="{'width':'500px'}">
+            <ng-template pTemplate="footer">
+                <p-button icon="pi pi-check" (click)="renameDoklad()" label="Подтвердить изменение" class="p-button-text"></p-button>
+            </ng-template>
+        </p-dialog>
+
+        <p-dialog header="Переместить доклад" [(visible)]="displayM2" [modal]="true" [style]="{width: '550px'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+            <h5>Группа доклада</h5>
+            <p-dropdown [options]="dgroupsel" [(ngModel)]="grsel" name="fkObjGroup" placeholder="Выберите группу" optionLabel="label" [style]="{'width':'500px'}"></p-dropdown>
+            <br>
+            <h5>Позиция доклада в группе</h5>
+              <p-inputNumber [(ngModel)]="doklad.groupPos" name="groupPos" value="{{doklad.groupPos}}" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                             decrementButtonClass="p-button-primary" incrementButtonClass="p-button-primary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"></p-inputNumber>
+              <p>&nbsp;</p><p>&nbsp;</p>
+              <p class="p-m-0">Выберите группу и позицию доклада</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+            <ng-template pTemplate="footer">
+                <p-button icon="pi pi-check" (click)="moveDoklad()" label="Подтвердить изменение" class="p-button-text"></p-button>
+            </ng-template>
+        </p-dialog>
+        
+        <p-dialog header="Удалить доклад" [(visible)]="displayM3" [modal]="true" [style]="{width: '550px'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+            <p class="p-m-0">Введите причину удаления доклада</p>
+            <textarea type="text" pInputTextarea name="reason" [(ngModel)]="reason" [style]="{'width':'500px','height':'200px'}"></textarea>
+            <ng-template pTemplate="footer">
+                <p-button icon="pi pi-check" (click)="delDoklad()" label="Подтвердить удаление" class="p-button-text"></p-button>
+            </ng-template>
+        </p-dialog>
+
+      </ng-container>
     </div>
 </div>
