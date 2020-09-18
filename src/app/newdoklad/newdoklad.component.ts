@@ -10,11 +10,6 @@ import { SelectItem } from 'primeng/api';
 //import { empty } from 'rxjs';
 //https://www.primefaces.org/primeng/showcase/#/listbox
 //https://www.primefaces.org/primeng/showcase/#/orderlist
-//https://www.primefaces.org/primeng/showcase/#/table/edit
-//https://www.primefaces.org/primeng/showcase/#/table/reorder
-//https://www.primefaces.org/primeng/showcase/#/table/style
-//https://www.primefaces.org/primeng/showcase/#/table/crud
-//https://stackblitz.com/edit/primeng-tablereorder-demo
 @Component({
   selector: 'app-newdoklad',
   templateUrl: './newdoklad.component.html',
@@ -22,9 +17,9 @@ import { SelectItem } from 'primeng/api';
 })
 export class NewdokladComponent implements OnInit {
   id: string="0";
-  listExistingForms: any[];
-  listSelectedForms: any[]= new Array();
-  listDokladOgl: any[]= new Array();
+  listExistingForms: any=[];
+  listSelectedForms: any=[];
+  listDokladOgl: any=[];
   todayDate : string;
   val: Date;
   dgroups:Dgroups[]=[];
@@ -37,6 +32,7 @@ export class NewdokladComponent implements OnInit {
   dateStart: string="2020-09-01";
   dateEnd: string="2100-12-31 00:00:00";
   ru: any;
+  cols: any[];
   
   onSubmit() {
     this.listDokladOgl=this.listSelectedForms;
@@ -87,6 +83,29 @@ export class NewdokladComponent implements OnInit {
       allDayText: 'Весь день'
     }; 
  
+    /*
+    "name": "1",
+    "description": "1",
+    "typeForm": "1",
+    "idAuthor": "1",
+    "activeTip": true,
+    "visibleTip": null,
+    "privilege": null,
+    "version": "1",
+    "dateStart": "2020-07-27 13:45:00",
+    "dateEnd": "2020-07-29 13:45:00",
+    "dateCreate": "2020-09-29 13:45:00",
+    "dateDelete": null,
+    "corTip": "I",
+     */
+    this.cols = [      
+      { field: 'id', header: '#' },
+      { field: 'pos', header: '№' },
+      { field: 'idFormChain', header: 'ID' },
+      { field: 'fkObjGroup', header: '№ группы' },
+      { field: 'name', header: 'Название отчёта' }
+    ];
+
     this.doklads=this.dokladService.getDoklad(this.id);  
     this.dgroupService.getOptions().then(data => this.dgroupsel = data);
     console.log(this.dgroupsel);     

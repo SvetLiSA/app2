@@ -1,63 +1,101 @@
 <div class="content" role="main">
   <form  (ngSubmit)="onSubmit()">
-  <div>
-    <div *ngFor="let doklad of doklads">
-      <p-scrollPanel [style]="{width: '620px', height: '360px'}">
-        <h5>Группа доклада</h5>
-        <p-dropdown [options]="dgroupsel" [(ngModel)]="doklad.fkObjGroup" name="fkObjGroup" placeholder="Выберите группу" optionLabel="label"  [style]="{'width':'600px'}"></p-dropdown>
+    <p-scrollPanel [style]="{width: '100%', height: '578px'}">
+      <div>
+        <div *ngFor="let doklad of doklads">
+            <h5>Группа доклада</h5>
+            <p-dropdown [options]="dgroupsel" [(ngModel)]="doklad.fkObjGroup" name="fkObjGroup" placeholder="Выберите группу" optionLabel="label"  [style]="{'width':'600px'}"></p-dropdown>
 
-        <h5>Полное название доклада</h5>
-        <input type="text" pInputText [(ngModel)]="doklad.fullName" name="fullName" value="{{doklad.fullName}}" [style]="{'width':'600px'}"> 
-    
-        <h5>Краткое название доклада</h5>
-        <input type="text" pInputText [(ngModel)]="doklad.shortName" name="shortName" value="{{doklad.shortName}}" [style]="{'width':'600px'}"> 
-
-        <h5>Заказчик доклада</h5>
-        <input type="text" pInputText [(ngModel)]="doklad.customer" name="customer" value="{{doklad.customer}}" [style]="{'width':'600px'}"> 
-    
-        <h5>Права</h5>
-        <p-multiSelect [options]="privilegesel" [(ngModel)]="doklad.privilege" name="privilege" defaultLabel="Выберите права" optionLabel="label" value="{{doklad.privilege}}" [style]="{'width':'600px'}"></p-multiSelect>
-
-        <h5>Позиция доклада в группе</h5>
-        <p-inputNumber [(ngModel)]="doklad.groupPos" name="groupPos" value="{{doklad.groupPos}}" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
-        decrementButtonClass="p-button-primary" incrementButtonClass="p-button-primary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"></p-inputNumber>
-    
-        <h5>Версия доклада</h5>
-        <input type="text" pInputText [(ngModel)]="doklad.version" name="version" value="{{doklad.version}}" [style]="{'width':'255px'}"> 
-    
-        <h5>Дата начала действия доклада</h5>
-        <p-calendar id="dateStart"  [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="2020:2200"
-                    class="col-xs-12" [showOnFocus]="false" name="dateStart" mask="9999-99-99 29:59:59" placeholder={{doklad.dateStart}}
-                    required="true" showTime="true" hourFormat="24" [locale]="ru"  readonlyInput="readonlyInput" dateFormat="yy-mm-dd" [style]="{'width':'255px'}">
-        </p-calendar>
+            <h5>Полное название доклада</h5>
+            <input type="text" pInputText [(ngModel)]="doklad.fullName" name="fullName" value="{{doklad.fullName}}" [style]="{'width':'600px'}"> 
         
-        <h5>Дата окончания действия доклада</h5>
-        <p-calendar id="dateEnd" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="2020:2200"
-                    class="col-xs-12" [showOnFocus]="false" name="dateEnd" mask="9999-99-99 29:59:59" placeholder={{doklad.dateEnd}}
-                    required="true" showTime="true" hourFormat="24" [locale]="ru"  readonlyInput="readonlyInput" dateFormat="yy-mm-dd" [style]="{'width':'255px'}">
-        </p-calendar>
-      </p-scrollPanel>
-    </div>
+            <h5>Краткое название доклада</h5>
+            <input type="text" pInputText [(ngModel)]="doklad.shortName" name="shortName" value="{{doklad.shortName}}" [style]="{'width':'600px'}"> 
 
-  </div><br>
-  
-  <h5></h5>    
-  <p-pickList #pl [source]="listExistingForms" [target]="listSelectedForms" 
-  sourceFilterPlaceholder="Поиск по названию отчёта" targetFilterPlaceholder="Поиск по названию отчёта"
-  sourceHeader="Доступные для выбора отчёты" 
-  targetHeader="Выбранные отчёты в составе доклада" 
-  dragdrop="true" filterBy="name" 
-  [style]="{'max-width': '100%', 'overflow':'auto'}" 
-  [sourceStyle]="{'height':'200px'}" [targetStyle]="{'height':'200px'}">
-    <ng-template let-forms pTemplate="item">
-        <div style="font-size:12px;float:left;margin:5px 5px 0 0">
-          Отчёт "{{forms.name}}" создан {{forms.dateStart}} 
+            <h5>Заказчик доклада</h5>
+            <input type="text" pInputText [(ngModel)]="doklad.customer" name="customer" value="{{doklad.customer}}" [style]="{'width':'600px'}"> 
+        
+            <h5>Права</h5>
+            <p-multiSelect [options]="privilegesel" [(ngModel)]="doklad.privilege" name="privilege" defaultLabel="Выберите права" optionLabel="label" value="{{doklad.privilege}}" [style]="{'width':'600px'}"></p-multiSelect>
+
+            <h5>Позиция доклада в группе</h5>
+            <p-inputNumber [(ngModel)]="doklad.groupPos" name="groupPos" value="{{doklad.groupPos}}" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+            decrementButtonClass="p-button-primary" incrementButtonClass="p-button-primary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"></p-inputNumber>
+        
+            <h5>Версия доклада</h5>
+            <input type="text" pInputText [(ngModel)]="doklad.version" name="version" value="{{doklad.version}}" [style]="{'width':'255px'}"> 
+        
+            <h5>Дата начала действия доклада</h5>
+            <p-calendar id="dateStart"  [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="2020:2200"
+                        class="col-xs-12" [showOnFocus]="false" name="dateStart" mask="9999-99-99 29:59:59" placeholder={{doklad.dateStart}}
+                        required="true" showTime="true" hourFormat="24" [locale]="ru"  readonlyInput="readonlyInput" dateFormat="yy-mm-dd" [style]="{'width':'255px'}">
+            </p-calendar>
+            
+            <h5>Дата окончания действия доклада</h5>
+            <p-calendar id="dateEnd" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="2020:2200"
+                        class="col-xs-12" [showOnFocus]="false" name="dateEnd" mask="9999-99-99 29:59:59" placeholder={{doklad.dateEnd}}
+                        required="true" showTime="true" hourFormat="24" [locale]="ru"  readonlyInput="readonlyInput" dateFormat="yy-mm-dd" [style]="{'width':'255px'}">
+            </p-calendar>
+
+            <br>&nbsp;
+            <h5>Список доступных для выбора отчётных форм</h5>   
+            <p-table [value]="listExistingForms" [(selection)]="listSelectedForms" [columns]="cols" [reorderableColumns]="true" styleClass="p-datatable-striped"  dataKey="id"
+              [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers"
+              [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+              [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
+              <ng-template pTemplate="header" let-columns>
+                  <tr>
+                      <th style="width:3rem"></th>
+                      <th style="width: 3rem">
+                          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                      </th>
+                      <th *ngFor="let col of columns" pReorderableColumn>
+                          {{col.header}}
+                      </th>
+                      <th>Название в оглавлении</th>
+                      <th>Лист</th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
+                  <tr [pReorderableRow]="index">
+                      <td>
+                          <span class="pi pi-bars" pReorderableRowHandle></span>
+                      </td>
+                      <td>
+                          <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                      </td>
+                      <td *ngFor="let col of columns">
+                          {{rowData[col.field]}}
+                      </td>
+                      <td pEditableColumn>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="doklad.listDokladOgl.oglName" [style]="{'width':'120px'}">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{doklad.listDokladOgl.oglName}}
+                            </ng-template>
+                        </p-cellEditor>
+                      </td>
+                      <td pEditableColumn>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="doklad.listDokladOgl.listName" [style]="{'width':'120px'}">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{doklad.listDokladOgl.listName}}
+                            </ng-template>
+                        </p-cellEditor>
+                      </td>
+                  </tr>
+              </ng-template>
+            </p-table>
         </div>
-    </ng-template>
-  </p-pickList>
 
+      </div><br>
+      
+
+    </p-scrollPanel>
     <br><button type="submit" pButton  label="Сохранить"></button>
-
-  </form>
-  
+  </form>  
 </div>
