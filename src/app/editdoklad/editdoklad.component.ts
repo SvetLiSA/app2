@@ -37,10 +37,14 @@ export class EditdokladComponent implements OnInit {
     this.displayM2=false;
     this.displayM3=false;
     this.reason="Приказ №";
-    this.doklads=this.dokladService.getDoklad(this.id).then(data => this.doklads = data);  
-    this.grsel=this.doklads[0].fkObjGroup;   
+    this.dokladService.getDoklad(this.id).then(data => this.doklads = data);    
     this.dgroupService.getOptions(true, this.todayDate, 'doklad').then(data => this.dgroupsel = data);
 
+  }
+
+  changeGroup(changedValue){
+    console.log(changedValue.value);
+    this.doklads[0].fkObjGroup=changedValue.value;
   }
 
   pubDoklad(){
@@ -61,7 +65,7 @@ export class EditdokladComponent implements OnInit {
 
   renameDoklad(){
     this.displayM1=false;
-    this.dokladService.renameDoklad(this.id,this.doklads[0].fullName,this.doklads[0].shortName); 
+    this.dokladService.renameDoklad(this.id, this.doklads[0].fullName, this.doklads[0].shortName); 
     console.log('rename');
   }
 
@@ -71,8 +75,7 @@ export class EditdokladComponent implements OnInit {
 
   moveDoklad(){
     this.displayM2=false;
-    this.dokladService.moveDoklad(this.id,this.grsel,this.doklads[0].groupPos); 
-    this.doklads[0].fkObjGroup=this.grsel; //this.displayM2.valueOf["fkObjGroup"];
+    this.dokladService.moveDoklad(this.id, this.doklads[0].fkObjGroup, this.doklads[0].groupPos); 
     console.log('move');
   }
 
@@ -82,7 +85,7 @@ export class EditdokladComponent implements OnInit {
 
   delDoklad(){
     this.displayM3=false;
-    this.dokladService.deleteDoklad(this.id,this.reason); 
+    this.dokladService.deleteDoklad(this.id, this.reason); 
     this.doklads[0].dateDelete=this.todayDate;
     console.log('del');
   }

@@ -1,10 +1,10 @@
 <div class="content" role="main">
-  <form  (ngSubmit)="onSubmit()">
+  <form name="newform" (ngSubmit)="onSubmit()">
     <p-scrollPanel [style]="{width: '100%', height: '578px'}">
       <div>
         <div *ngFor="let doklad of doklads">
             <h5>Группа доклада</h5>
-            <p-dropdown [options]="dgroupsel" [(ngModel)]="doklad.fkObjGroup" name="fkObjGroup" placeholder="Выберите группу" optionLabel="label"  [style]="{'width':'600px'}"></p-dropdown>
+            <p-dropdown [options]="dgroupsel" [(ngModel)]="selectedGroup" name="fkObjGroup" placeholder="Выберите группу" optionLabel="label" (onChange)="changeGroup(selectedGroup)"  [style]="{'width':'600px'}"></p-dropdown>
 
             <h5>Полное название доклада</h5>
             <input type="text" pInputText [(ngModel)]="doklad.fullName" name="fullName" value="{{doklad.fullName}}" [style]="{'width':'600px'}"> 
@@ -15,8 +15,11 @@
             <h5>Заказчик доклада</h5>
             <input type="text" pInputText [(ngModel)]="doklad.customer" name="customer" value="{{doklad.customer}}" [style]="{'width':'600px'}"> 
         
+            <h5>Основание создания доклада</h5>
+            <input type="text" pInputText name="reason" [style]="{'width':'600px'}"> 
+        
             <h5>Права</h5>
-            <p-multiSelect [options]="privilegesel" [(ngModel)]="doklad.privilege" name="privilege" defaultLabel="Выберите права" optionLabel="label" value="{{doklad.privilege}}" [style]="{'width':'600px'}"></p-multiSelect>
+            <p-dropdown [options]="privilegesel" [(ngModel)]="selectedPrivilege" name="privilege" defaultLabel="Выберите права" optionLabel="label" (onChange)="changePriv(selectedPrivilege)" [style]="{'width':'600px'}"></p-dropdown>
 
             <h5>Позиция доклада в группе</h5>
             <p-inputNumber [(ngModel)]="doklad.groupPos" name="groupPos" value="{{doklad.groupPos}}" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
@@ -37,8 +40,21 @@
                         required="true" showTime="true" hourFormat="24" [locale]="ru"  readonlyInput="readonlyInput" dateFormat="yy-mm-dd" [style]="{'width':'255px'}">
             </p-calendar>
 
+            <h5>Титульный лист</h5>
+            <p-fileUpload mode="basic" name="titlefile"  maxFileSize="1000000" (onUpload)="onBasicUpload($event)" chooseLabel="Выбрать файл"></p-fileUpload>
+
             <br>&nbsp;
-            <h5>Список доступных для выбора отчётных форм</h5>   
+            <h5>Список доступных для выбора отчётных форм</h5> 
+            <h6>
+                Отметьте галочкой отчётные формы, которые войдут в доклад. <br>
+                Нажмите "Корзину" в заголовке таблицы, чтобы убрать лишние отчёты. <br>
+                Путём перетаскивания за элемент в первом столбце, упорядочите отчёты в нужной последовательности.
+            </h6> 
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                    <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteUnSelectedForms()" [disabled]="!listSelectedForms || !listSelectedForms.length"></button>
+                </ng-template>
+            </p-toolbar> 
             <p-table [value]="listExistingForms" [(selection)]="listSelectedForms" [columns]="cols" [reorderableColumns]="true" styleClass="p-datatable-striped"  dataKey="id"
               [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers"
               [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -92,6 +108,7 @@
             </p-table>
         </div>
 
+        
       </div><br>
       
 

@@ -18,8 +18,7 @@ export interface Dforms {
     dateCreate: string;
     dateDelete: string;
     corTip: string;
-/*
-    "listFormMark": [],
-    "listNumericalPokValue": []
-*/
+    listFormMark: any[],
+    listNumericalPokValue: any[]
+
 }

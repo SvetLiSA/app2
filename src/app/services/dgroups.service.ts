@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Dgroups } from '../models/dgroups';
 import { TreeNode } from 'primeng/api';
@@ -8,25 +8,18 @@ import { SelectItem } from 'primeng/api';
 @Injectable()
 export class DgroupsService {
   
-  constructor(private httpClient: HttpClient) { }
-/*
-  getAllDgroups0(isIncludedDel:boolean,dateReport:string,typeTreeElements:string): void {
-    //isIncludedDel
-    //dateReport
-    this.httpClient.get<Dgroups[]>(`${environment.apiUrl}/objGroup/getAllCentralGroup?typeTreeElements=`+typeTreeElements+`&isIncludedDel=`+isIncludedDel+`&dateReport=`+dateReport)
-    .subscribe( data => {
-      console.log(data);
-    },
-    (error: HttpErrorResponse) => {
-    console.log (error.name + ' ' + error.message);
-    });
-  }
-  */
+  private corsHeaders:HttpHeaders;
+
+  constructor(private httpClient: HttpClient) {
+     this.corsHeaders=new HttpHeaders({
+       'Accept' : 'application/json'
+     });
+   }
 
   getAllDgroups(isIncludedDel:boolean,dateReport:string,typeTreeElements:string):any {
     let urlzap:string=`${environment.apiUrl}/objGroup/getAllCentralGroup?typeTreeElements=`+typeTreeElements+`&isIncludedDel=`+isIncludedDel+`&dateReport=`+dateReport;
     urlzap='assets/gr.json';
-    return this.httpClient.get<any>(urlzap)
+    return this.httpClient.get<any>(urlzap, { headers: this.corsHeaders })
     .toPromise()
       .then((res) => {
         let raw_json:Dgroups[] = [res];
@@ -72,7 +65,7 @@ export class DgroupsService {
   getOptions(isIncludedDel:boolean,dateReport:string,typeTreeElements:string):any {
     let urlzap:string=`${environment.apiUrl}/objGroup/getAllCentralGroup?typeTreeElements=`+typeTreeElements+`&isIncludedDel=`+isIncludedDel+`&dateReport=`+dateReport;
     urlzap='assets/gr.json';
-    return this.httpClient.get<any>(urlzap)
+    return this.httpClient.get<any>(urlzap, { headers: this.corsHeaders })
     .toPromise()
     .then((res) => {
         let raw_json:Dgroups[] = [res];

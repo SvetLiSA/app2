@@ -10,13 +10,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
+import { ConfirmationService } from 'primeng/api';
+//import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { DropdownModule } from 'primeng/dropdown';
 import { DialogModule } from 'primeng/dialog';
 import { FieldsetModule } from 'primeng/fieldset';
+import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputNumberModule } from 'primeng/inputnumber';
+//import { MessageService } from 'primeng/api';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { PanelModule } from 'primeng/panel';
 import { PickListModule } from 'primeng/picklist';
@@ -60,10 +64,12 @@ import { ProsmotrComponent } from './prosmotr/prosmotr.component';
     ButtonModule, 
     CalendarModule,
     CardModule,
+    //ConfirmDialogModule, 
     ContextMenuModule,
     DropdownModule,
     DialogModule,
     FieldsetModule,
+    FileUploadModule,
     FormsModule,
     HttpClientModule,
     InputTextModule,
@@ -80,7 +86,7 @@ import { ProsmotrComponent } from './prosmotr/prosmotr.component';
     TooltipModule,
     TreeModule
   ],
-  providers: [ DgroupsService, DokladsService, DatePipe ],
+  providers: [ DgroupsService, DokladsService, DatePipe, ConfirmationService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

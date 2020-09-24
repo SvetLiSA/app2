@@ -1,6 +1,6 @@
-<div class="content" role="main">
+<div class="content" role="main">  
+  <ng-container *ngIf="doklads">
     <div class="dokl-list" *ngFor="let doklad of doklads">
-      <ng-container *ngIf="doklads">
         <p-card>      
             <p-toolbar-group-left>
               <p-button icon="pi pi-pencil" title='Переименовать доклад' (click)="dlgRenameDoklad()" styleClass="p-button-primery"></p-button>&nbsp;
@@ -52,7 +52,7 @@
 
         <p-dialog header="Переместить доклад" [(visible)]="displayM2" [modal]="true" [style]="{width: '550px'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
             <h5>Группа доклада</h5>
-            <p-dropdown [options]="dgroupsel" [(ngModel)]="grsel" name="fkObjGroup" placeholder="Выберите группу" optionLabel="label" [style]="{'width':'500px'}"></p-dropdown>
+            <p-dropdown [options]="dgroupsel" [(ngModel)]="grsel" name="fkObjGroup" placeholder="Выберите группу" optionLabel="label" (onChange)="changeGroup(grsel)" [style]="{'width':'500px'}"></p-dropdown>
             <br>
             <h5>Позиция доклада в группе</h5>
               <p-inputNumber [(ngModel)]="doklad.groupPos" name="groupPos" value="{{doklad.groupPos}}" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
@@ -71,7 +71,10 @@
                 <p-button icon="pi pi-check" (click)="delDoklad()" label="Подтвердить удаление" class="p-button-text"></p-button>
             </ng-template>
         </p-dialog>
-
-      </ng-container>
     </div>
+  </ng-container>
+
+  <ng-container *ngIf="!doklads">
+    <p>Не найдено.</p>
+  </ng-container>
 </div>

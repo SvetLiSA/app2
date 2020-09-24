@@ -164,7 +164,7 @@ export class DokladsService {
       "idDokladChain": null,
       "idDor": kodDor,
       "listDokladOgl": [],
-      "privilege": "",
+      "privilege": null,
       "shortName": "Краткое название доклада",
       "version": "1.0",
       "visibleTip": false

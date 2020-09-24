@@ -4,12 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { DgroupsService } from '../services/dgroups.service';
 import { DokladsService } from '../services/doklads.service';
+import { DformsService } from '../services/dforms.service';
 import { Dgroups } from '../models/dgroups';
 import { Doklads } from '../models/doklads';
 import { SelectItem } from 'primeng/api';
 //import { empty } from 'rxjs';
-//https://www.primefaces.org/primeng/showcase/#/listbox
-//https://www.primefaces.org/primeng/showcase/#/orderlist
+
 @Component({
   selector: 'app-newdoklad',
   templateUrl: './newdoklad.component.html',
@@ -18,30 +18,33 @@ import { SelectItem } from 'primeng/api';
 export class NewdokladComponent implements OnInit {
   id: string="0";
   listExistingForms: any=[];
+  listForms: any=[];
   listSelectedForms: any=[];
   listDokladOgl: any=[];
   todayDate : string;
   val: Date;
   dgroups:Dgroups[]=[];
   dgroupsel:any=[];
+  fgroupsel:any=[];
+  grId:string;
   doklads:Doklads[]=[];
   selectedGroup: string;
   privilegesel: any;
-  selectedPrivilege: string="КТ";
+  selectedPrivilege: string;
   version: string="1.0";
-  dateStart: string="2020-09-01";
+  dateStart: string;
   dateEnd: string="2100-12-31 00:00:00";
+  uploadedFiles: any[] = [];
   ru: any;
   cols: any[];
-  
-  onSubmit() {
-    this.listDokladOgl=this.listSelectedForms;
-    //console.log(this.doklads); 
-    //console.log(this.listSelectedForms); 
-  }
 
-  constructor(private route: ActivatedRoute, private dgroupService : DgroupsService, private dokladService : DokladsService, private datePipe: DatePipe) { 
+  constructor(private route: ActivatedRoute, 
+              private dgroupService : DgroupsService, 
+              private dformsService : DformsService, 
+              private dokladService : DokladsService, 
+              private datePipe: DatePipe) { 
     this.id = route.snapshot.params['id'];
+    //, private messageService: MessageService
     this.todayDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd H:mm:ss');
     this.dateStart = this.datePipe.transform(new Date(), 'yyyy-MM-dd H:mm:ss');
     this.doklads=[]; //рыба нового доклада
@@ -96,19 +99,62 @@ export class NewdokladComponent implements OnInit {
       this.dokladService.getDoklad(this.id).then(data => this.doklads = data);
     }
     else
-    {
-      this.doklads=this.dokladService.emptyDoklad();
+    {      
+      this.doklads = this.dokladService.emptyDoklad();
+      this.listSelectedForms = [];
     }
-      
+    
+    if(this.doklads[0])
+    {
+      console.log("nnn");
+      this.selectedGroup=this.doklads[0].fkObjGroup;
+      this.dgroupsel.value=this.selectedGroup;
+      this.selectedPrivilege=this.doklads[0].privilege;
+      this.privilegesel.value=this.selectedPrivilege;
+      console.log(this.selectedPrivilege);
+      this.listSelectedForms.push(this.doklads[0].listDokladOgl);
+    }
+    
+    this.dgroupService.getOptions(true, this.todayDate, 'form').then(data => this.fgroupsel = data);
+    for (let k = 0; k < this.fgroupsel.length; k++) {  
+      if(Array.isArray(this.fgroupsel[k])){ 
+        this.grId=this.fgroupsel[k].value;
+        this.dformsService.getAllDforms(this.grId, true, this.fgroupsel[k].label).then(data => this.listForms = data);
+        this.listExistingForms.concat(this.listForms);
+      }
+    }
+
     this.dgroupService.getOptions(true, this.todayDate, 'doklad').then(data => this.dgroupsel = data);
-    //console.log(this.dgroupsel);     
-
-    //this.selectedGroup=this.doklads[0].fkObjGroup;
-    //this.selectedPrivilege=this.doklads[0].privilege;
-    this.listSelectedForms = [];
-    //this.listSelectedForms.push(this.doklads[0].listDokladOgl);
-    //this.listExistingForms = [];
-
+    //console.log(this.dgroupsel);   
     
   }
+
+  onUpload(event) {
+    for(let file of event.files) {
+        this.uploadedFiles.push(file);
+    }
+  }
+
+  changeGroup(changedValue){
+    console.log(changedValue.value);
+    this.doklads[0].fkObjGroup=changedValue.value;
+  }
+  
+  changePriv(changedValue){
+    console.log(changedValue.value);
+    this.doklads[0].privilege=changedValue.value; //label?
+  }
+
+  deleteUnSelectedForms() {
+    this.listExistingForms = this.listExistingForms.filter(val => this.listSelectedForms.includes(val));
+    this.listSelectedForms = null;
+  }
+
+  onSubmit() {
+    this.listDokladOgl=this.listSelectedForms;
+    //console.log(this.doklads); 
+    //console.log(this.listSelectedForms); 
+  }
+
+
 }
