@@ -5,7 +5,7 @@
     "fkObjGroup": "1",
     "idDor": "17",
     "groupPos": 1,
-    "shortName": "Доклад 1 shortName",
+    "shortName": "ДД",
     "fullName": "Диспетчерский доклад",
     "customer": "customer",
     "idAuthor": "idAuthor",
@@ -18,6 +18,15 @@
     "dateCreate": "2020-08-20 14:10:13",
     "dateDelete": null,
     "corTip": "I",
-    "listDokladOgl": null
+    "listDokladOgl": [
+      {
+        "fkDoklad": "1",
+        "id": "76756rty",
+        "listDokladLinkForm": [],
+        "listName": "Лист 1",
+        "listPos": 1,
+        "oglName": "Справка 1"
+      }
+    ]
   }
 ]
