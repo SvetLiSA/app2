@@ -1,0 +1,23 @@
+﻿[
+  {
+    "id": "8a488b44740b8ec701740b8fe5e30000",
+    "idDokladChain": "889d5d92-48aa-440f-9f86-bfa0e9451c8d",
+    "fkObjGroup": "1",
+    "idDor": "17",
+    "groupPos": 1,
+    "shortName": "Доклад 1 shortName",
+    "fullName": "Диспетчерский доклад",
+    "customer": "customer",
+    "idAuthor": "idAuthor",
+    "activeTip": null,
+    "visibleTip": true,
+    "privilege": null,
+    "version": "1.0",
+    "dateStart": "2020-08-17 12:44:35",
+    "dateEnd": "2020-08-22 12:44:35",
+    "dateCreate": "2020-08-20 14:10:13",
+    "dateDelete": null,
+    "corTip": "I",
+    "listDokladOgl": null
+  }
+]

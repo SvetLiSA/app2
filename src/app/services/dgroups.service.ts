@@ -9,8 +9,8 @@ import { SelectItem } from 'primeng/api';
 export class DgroupsService {
   
   constructor(private httpClient: HttpClient) { }
-
-  getAllDgroups(isIncludedDel:boolean,dateReport:string,typeTreeElements:string): void {
+/*
+  getAllDgroups0(isIncludedDel:boolean,dateReport:string,typeTreeElements:string): void {
     //isIncludedDel
     //dateReport
     this.httpClient.get<Dgroups[]>(`${environment.apiUrl}/objGroup/getAllCentralGroup?typeTreeElements=`+typeTreeElements+`&isIncludedDel=`+isIncludedDel+`&dateReport=`+dateReport)
@@ -21,9 +21,12 @@ export class DgroupsService {
     console.log (error.name + ' ' + error.message);
     });
   }
+  */
 
-  getFiles():any {
-    return this.httpClient.get<any>('assets/gr.json')
+  getAllDgroups(isIncludedDel:boolean,dateReport:string,typeTreeElements:string):any {
+    let urlzap:string=`${environment.apiUrl}/objGroup/getAllCentralGroup?typeTreeElements=`+typeTreeElements+`&isIncludedDel=`+isIncludedDel+`&dateReport=`+dateReport;
+    urlzap='assets/gr.json';
+    return this.httpClient.get<any>(urlzap)
     .toPromise()
       .then((res) => {
         let raw_json:Dgroups[] = [res];
@@ -42,6 +45,9 @@ export class DgroupsService {
           });                    
         };
         return new_node_list || [];
+      })
+      .catch((res) => {
+        console.error(res);
       });
   }
 
@@ -63,8 +69,10 @@ export class DgroupsService {
     return subgr || [];
   }
 
-  getOptions():any {
-    return this.httpClient.get<any>('assets/gr.json')
+  getOptions(isIncludedDel:boolean,dateReport:string,typeTreeElements:string):any {
+    let urlzap:string=`${environment.apiUrl}/objGroup/getAllCentralGroup?typeTreeElements=`+typeTreeElements+`&isIncludedDel=`+isIncludedDel+`&dateReport=`+dateReport;
+    urlzap='assets/gr.json';
+    return this.httpClient.get<any>(urlzap)
     .toPromise()
     .then((res) => {
         let raw_json:Dgroups[] = [res];
@@ -79,6 +87,9 @@ export class DgroupsService {
           }                           
         };
         return opt_list || [];
+      })
+      .catch((res) => {
+        console.error(res);
       });
   }
 
@@ -90,7 +101,6 @@ export class DgroupsService {
           this.get_subgroup_option(subgr, grdata[i].listChildrenObjGroup, ot+"--");
         }       
       };
-    //return subgr;
   }
 
 }

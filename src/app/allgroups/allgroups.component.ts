@@ -3,7 +3,6 @@ import { DatePipe } from '@angular/common';
 import { DgroupsService } from '../services/dgroups.service';
 import { TreeNode } from 'primeng/api';
 
-
 @Component({
   selector: 'app-allgroups',
   templateUrl: './allgroups.component.html',
@@ -19,8 +18,7 @@ export class AllgroupsComponent implements OnInit {
 
   ngOnInit() {
     this.todayDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd H:mm:ss');
-    //this.dgroupService.getAllDgroups(true, this.todayDate, 'doklad'); 
-    this.dgroupService.getFiles().then(data => this.dgrtree = data);
+    this.dgroupService.getAllDgroups(true, this.todayDate, 'doklad').then(data => this.dgrtree = data);
   }
     
   expandAll(){

@@ -8,109 +8,46 @@ import { Doklads } from '../models/doklads';
 })
 export class DokladsService {
   constructor(private httpClient: HttpClient) { }
-  
-  getAllDoklads(idObjGroup:string,isIncludedDel:boolean): void {
-    //idObjGroup
-    //isIncludedDel
-    this.httpClient.get<Doklads[]>(`${environment.apiUrl}/doklad/getListByObjGroupId?idObjGroup=`+idObjGroup+`&isIncludedDel=`+isIncludedDel)
-    .subscribe( data => {
-      console.log(data);
-    },
-    (error: HttpErrorResponse) => {
-    console.log (error.name + ' ' + error.message);
-    });
-  }
-
-  getFiles() {
-    return this.httpClient.get<Doklads[]>('assets/dokl.json')
+ 
+  getAllDoklads(idObjGroup:string,isIncludedDel:boolean):any {
+    let urlzap:string=`${environment.apiUrl}/doklad/getListByObjGroupId?idObjGroup=`+idObjGroup+`&isIncludedDel=`+isIncludedDel;
+    urlzap='assets/dokl.json';
+    return this.httpClient.get<Doklads[]>(urlzap)
     .toPromise()
       .then((res) => {
         return res;
+      })
+      .catch((res) => {
+        console.error(res);
       });
   }
 
-  getPublishedDoklads(idObjGroup:string,isIncludedDel:boolean,dateReport:string): void {
-    //idObjGroup
-    //isIncludedDel
-    //dateReport
-    this.httpClient.get<Doklads[]>(`${environment.apiUrl}/doklad/getListPublishedByObjGroupId?idObjGroup=`+idObjGroup+`&isIncludedDel=`+isIncludedDel+`&dateReport=`+dateReport)
-    .subscribe( data => {
-      console.log(data);
-    },
-    (error: HttpErrorResponse) => {
-    console.log (error.name + ' ' + error.message);
-    });
+  getPublishedDoklads(idObjGroup:string,isIncludedDel:boolean,dateReport:string): any {
+    let urlzap:string=`${environment.apiUrl}/doklad/getListPublishedByObjGroupId?idObjGroup=`+idObjGroup+`&isIncludedDel=`+isIncludedDel+`&dateReport=`+dateReport;
+    return this.httpClient.get<Doklads[]>(urlzap)
+    .toPromise()
+      .then((res) => {
+        return res;
+      })
+      .catch((res) => {
+        console.error(res);
+      });
   }
-  
-  getDoklad(idDoklad:string):any  {
-    /*
-    this.httpClient.get<Doklads>(`${environment.apiUrl}/doklad/getDoklad?idDoklad=`+idDoklad)
-    .subscribe( data => {
-      console.log(data);
-    },
-    (error: HttpErrorResponse) => {
-    console.log (error.name + ' ' + error.message);
-    });
-    */
-    return [{
-      "activeTip": true,
-      "corTip": "tip",
-      "customer": "Заказчик",
-      "dateCreate": "2020-09-17T04:16:05",
-      "dateDelete": "2020-09-17T04:16:05.396Z",
-      "dateEnd": "2020-09-17T04:16:05.396Z",
-      "dateStart": "2020-09-17T04:16:05.397Z",
-      "fkObjGroup": "1",
-      "fullName": "Полное название",
-      "groupPos": 0,
-      "id": "ID доклада",
-      "idAuthor": "ID автора",
-      "idDokladChain": "ID цепочки доклада",
-      "idDor": "код дороги",
-      "listDokladOgl": [
-        {
-          "fkDoklad": "ID доклада",
-          "id": "ID оглавления",
-          "listDokladLinkForm": [
-            {
-              "fkDokladOgl": "ID оглавления доклада",
-              "id": "ID формы1",
-              "idFormChain": "ID цепочки формы",
-              "rangeForInsert": "диапазон",
-              "reportHour": 0,
-              "startPos": 0
-            }
-          ],
-          "listName": "лист 1",
-          "listPos": 1,
-          "oglName": "отчёт 1"
-        },
-        {
-          "fkDoklad": "ID доклада",
-          "id": "ID оглавления",
-          "listDokladLinkForm": [
-            {
-              "fkDokladOgl": "ID оглавления доклада",
-              "id": "ID формы2",
-              "idFormChain": "ID цепочки формы",
-              "rangeForInsert": "диапазон",
-              "reportHour": 0,
-              "startPos": 0
-            }
-          ],
-          "listName": "лист 2",
-          "listPos": 2,
-          "oglName": "отчёт 2"
-        }
-      ],
-      "privilege": "КТ",
-      "shortName": "Краткое название",
-      "version": "1.0",
-      "visibleTip": true
-    }];
-  }
-  
-  getTitlePage(idDoklad:string): void {
+
+  getDoklad(idDoklad:string):any {
+    let urlzap:string=`${environment.apiUrl}/doklad/getDoklad?idDoklad=`+idDoklad;
+    urlzap='assets/dokl0.json';
+    return this.httpClient.get<Doklads>(urlzap)
+    .toPromise()
+      .then((res) => {
+        return res;
+      })
+      .catch((res) => {
+        console.error(res);
+      });
+  } 
+    
+  getTitlePage(idDoklad:string): any {
     this.httpClient.get<any>(`${environment.apiUrl}/doklad/getTitlePage?idDoklad=`+idDoklad)
     .subscribe( data => {
       console.log(data);
@@ -120,7 +57,7 @@ export class DokladsService {
     });
   }
   
-  getCalcDoklad(idDoklad:string,format:string,dateReport:string): void {
+  getCalcDoklad(idDoklad:string,format:string,dateReport:string): any {
     // ещё не готово api
     this.httpClient.get<any>(`${environment.apiUrl}/doklad/getCalculatedDoklad?idDokladChain=`+idDoklad)
     .subscribe( data => {
@@ -131,7 +68,7 @@ export class DokladsService {
     });
   }
   
-  newDoklad(stringDokladDTO:string,titleFile:File,reason:string): void {
+  newDoklad(stringDokladDTO:string,titleFile:File,reason:string): any {
     //stringDokladDTO
     //titleFile
     //reason
@@ -145,7 +82,7 @@ export class DokladsService {
     });
   }
   
-  updateDoklad(stringDokladDTO:string,titleFile:File,reason:string): void {
+  updateDoklad(stringDokladDTO:string,titleFile:File,reason:string): any {
     //stringDokladDTO
     //titleFile
     //reason
@@ -159,7 +96,7 @@ export class DokladsService {
     });
   }
   
-  deleteDoklad(idDoklad:string,reason:string): void {
+  deleteDoklad(idDoklad:string,reason:string): any {
     this.httpClient.post<any>(`${environment.apiUrl}/doklad/delete`,{ idDoklad:idDoklad, reason:reason })
     .subscribe( data => {
       console.log(data);
@@ -169,7 +106,7 @@ export class DokladsService {
     });
   }
 
-  setInactiveDoklad(idDoklad:string): void {
+  setInactiveDoklad(idDoklad:string): any {
     this.httpClient.post<any>(`${environment.apiUrl}/doklad/setInactive`,{ idDoklad:idDoklad })
     .subscribe( data => {
       console.log(data);
@@ -179,7 +116,7 @@ export class DokladsService {
     });
   }
 
-  setActiveDoklad(idDoklad:string): void {
+  setActiveDoklad(idDoklad:string): any {
     this.httpClient.post<any>(`${environment.apiUrl}/doklad/setActive`,{ idDoklad:idDoklad })
     .subscribe( data => {
       console.log(data);
@@ -189,7 +126,7 @@ export class DokladsService {
     });
   }
 
-  moveDoklad(idDoklad:string,idNewObjGroup:string,position:number): void {
+  moveDoklad(idDoklad:string,idNewObjGroup:string,position:number): any {
     this.httpClient.post<any>(`${environment.apiUrl}/doklad/move`,{ idDoklad:idDoklad, idNewObjGroup:idNewObjGroup, position:position })
     .subscribe( data => {
       console.log(data);
@@ -199,7 +136,7 @@ export class DokladsService {
     });
   }
   
-  renameDoklad(idDoklad:string,fullName:string,shortName:string): void {
+  renameDoklad(idDoklad:string,fullName:string,shortName:string): any {
     this.httpClient.post<any>(`${environment.apiUrl}/doklad/changeName`,{ idDoklad:idDoklad, fullName:fullName, shortName:shortName })
     .subscribe( data => {
       console.log(data);
@@ -207,6 +144,31 @@ export class DokladsService {
     (error: HttpErrorResponse) => {
     console.log (error.name + ' ' + error.message);
     });
+  }
+
+  emptyDoklad():any  {
+    let kodDor:string="61";
+    return [{
+      "activeTip": true,
+      "corTip": "I",
+      "customer": "Заказчик доклада",
+      "dateCreate": null,
+      "dateDelete": null,
+      "dateEnd": "2120-12-31T04:59:59.396Z",
+      "dateStart": new Date(),
+      "fkObjGroup": "",
+      "fullName": "Полное название доклада",
+      "groupPos": 0,
+      "id": null,
+      "idAuthor": null,
+      "idDokladChain": null,
+      "idDor": kodDor,
+      "listDokladOgl": [],
+      "privilege": "",
+      "shortName": "Краткое название доклада",
+      "version": "1.0",
+      "visibleTip": false
+    }];
   }
 
 }

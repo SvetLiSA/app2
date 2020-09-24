@@ -83,21 +83,6 @@ export class NewdokladComponent implements OnInit {
       allDayText: 'Весь день'
     }; 
  
-    /*
-    "name": "1",
-    "description": "1",
-    "typeForm": "1",
-    "idAuthor": "1",
-    "activeTip": true,
-    "visibleTip": null,
-    "privilege": null,
-    "version": "1",
-    "dateStart": "2020-07-27 13:45:00",
-    "dateEnd": "2020-07-29 13:45:00",
-    "dateCreate": "2020-09-29 13:45:00",
-    "dateDelete": null,
-    "corTip": "I",
-     */
     this.cols = [      
       { field: 'id', header: '#' },
       { field: 'pos', header: '№' },
@@ -106,129 +91,23 @@ export class NewdokladComponent implements OnInit {
       { field: 'name', header: 'Название отчёта' }
     ];
 
-    this.doklads=this.dokladService.getDoklad(this.id);  
-    this.dgroupService.getOptions().then(data => this.dgroupsel = data);
-    console.log(this.dgroupsel);     
+    if(this.id)
+    {
+      this.dokladService.getDoklad(this.id).then(data => this.doklads = data);
+    }
+    else
+    {
+      this.doklads=this.dokladService.emptyDoklad();
+    }
+      
+    this.dgroupService.getOptions(true, this.todayDate, 'doklad').then(data => this.dgroupsel = data);
+    //console.log(this.dgroupsel);     
 
-    this.selectedGroup=this.doklads[0].fkObjGroup;
-    this.selectedPrivilege=this.doklads[0].privilege;
-    //this.listSelectedForms = [];
-    this.listSelectedForms.push(this.doklads[0].listDokladOgl);
-    
-
-
-
-    this.listExistingForms = [
-      {
-        "id": "1",
-        "idFormChain": "1",
-        "fkObjGroup": "1",
-        "idDor": "1",
-        "pos": 1,
-        "name": "1",
-        "description": "1",
-        "typeForm": "1",
-        "idAuthor": "1",
-        "activeTip": true,
-        "visibleTip": null,
-        "privilege": null,
-        "version": "1",
-        "dateStart": "2020-07-27 13:45:00",
-        "dateEnd": "2020-07-29 13:45:00",
-        "dateCreate": "2020-09-29 13:45:00",
-        "dateDelete": null,
-        "corTip": "I",
-        "listFormMark": [],
-        "listNumericalPokValue": []
-      },
-      {
-        "id": "8a488b4473b45d880173b45db5730000",
-        "idFormChain": "1",
-        "fkObjGroup": "1",
-        "idDor": "1",
-        "pos": 1,
-        "name": "1",
-        "description": "1",
-        "typeForm": "1",
-        "idAuthor": "1",
-        "activeTip": true,
-        "visibleTip": true,
-        "privilege": null,
-        "version": "1",
-        "dateStart": "2020-08-03 15:48:26",
-        "dateEnd": "2020-08-03 15:48:26",
-        "dateCreate": "2020-08-03 15:48:26",
-        "dateDelete": null,
-        "corTip": "I",
-        "listFormMark": [],
-        "listNumericalPokValue": []
-      },
-      {
-        "id": "8a488b4473b45d880173b45ec4350001",
-        "idFormChain": "1",
-        "fkObjGroup": "1",
-        "idDor": "1",
-        "pos": 1,
-        "name": "1",
-        "description": "1",
-        "typeForm": "1",
-        "idAuthor": "1",
-        "activeTip": true,
-        "visibleTip": true,
-        "privilege": null,
-        "version": "1",
-        "dateStart": "2020-08-03 15:49:36",
-        "dateEnd": "2020-08-03 15:49:36",
-        "dateCreate": "2020-08-03 15:49:36",
-        "dateDelete": null,
-        "corTip": "I",
-        "listFormMark": [],
-        "listNumericalPokValue": []
-      },
-      {
-        "id": "8a488b4473b461710173b4618a420000",
-        "idFormChain": "1",
-        "fkObjGroup": "1",
-        "idDor": "1",
-        "pos": 1,
-        "name": "1",
-        "description": "1",
-        "typeForm": "1",
-        "idAuthor": "1",
-        "activeTip": true,
-        "visibleTip": true,
-        "privilege": null,
-        "version": "1",
-        "dateStart": "2020-08-03 15:52:38",
-        "dateEnd": "2020-08-03 15:52:38",
-        "dateCreate": "2020-08-03 15:52:38",
-        "dateDelete": null,
-        "corTip": "I",
-        "listFormMark": [],
-        "listNumericalPokValue": []
-      },
-      {
-        "id": "8a488b4473b461710173b462b0b00001",
-        "idFormChain": "1",
-        "fkObjGroup": "1",
-        "idDor": "1",
-        "pos": 1,
-        "name": "1",
-        "description": "1",
-        "typeForm": "1",
-        "idAuthor": "1",
-        "activeTip": true,
-        "visibleTip": true,
-        "privilege": null,
-        "version": "1",
-        "dateStart": "2020-08-03 15:53:53",
-        "dateEnd": "2020-08-03 15:53:53",
-        "dateCreate": "2020-08-03 15:53:53",
-        "dateDelete": null,
-        "corTip": "I",
-        "listFormMark": [],
-        "listNumericalPokValue": []
-      }];
+    //this.selectedGroup=this.doklads[0].fkObjGroup;
+    //this.selectedPrivilege=this.doklads[0].privilege;
+    this.listSelectedForms = [];
+    //this.listSelectedForms.push(this.doklads[0].listDokladOgl);
+    //this.listExistingForms = [];
 
     
   }

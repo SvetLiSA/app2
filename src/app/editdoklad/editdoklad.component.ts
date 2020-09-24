@@ -15,7 +15,7 @@ import { SelectItem } from 'primeng/api';
 
 export class EditdokladComponent implements OnInit {
   id: string; 
-  doklads:Doklads[]=[];  
+  doklads:any=[];  
   dgroupsel:any=[];
   grsel:string;
   selectedGroup: string;
@@ -37,9 +37,9 @@ export class EditdokladComponent implements OnInit {
     this.displayM2=false;
     this.displayM3=false;
     this.reason="Приказ №";
-    this.doklads=this.dokladService.getDoklad(this.id);  
+    this.doklads=this.dokladService.getDoklad(this.id).then(data => this.doklads = data);  
     this.grsel=this.doklads[0].fkObjGroup;   
-    this.dgroupService.getOptions().then(data => this.dgroupsel = data);
+    this.dgroupService.getOptions(true, this.todayDate, 'doklad').then(data => this.dgroupsel = data);
 
   }
 

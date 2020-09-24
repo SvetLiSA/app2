@@ -32,14 +32,14 @@ export class FormsingrComponent implements OnInit {
   public paramChange(obj:any){
     console.log(obj.value);
     switch(obj.value){
-      case "1": this.dokladService.getAllDoklads(this.id,false); break;
-      case "2": this.dokladService.getPublishedDoklads(this.id,true,this.todayDate); break;
-      case "3": this.dokladService.getAllDoklads(this.id,true); break;
+      case "1": this.dokladService.getAllDoklads(this.id,false).then(data => this.doklads = data); break;
+      case "2": this.dokladService.getPublishedDoklads(this.id,true,this.todayDate).then(data => this.doklads = data); break;
+      case "3": this.dokladService.getAllDoklads(this.id,true).then(data => this.doklads = data); break;
     }
   }
 
   ngOnInit() {      
     //this.dokladService.getAllDoklads(this.id,false);    
-    this.dokladService.getFiles().then(data => this.doklads = data);
+    this.dokladService.getAllDoklads(this.id,false).then(data => this.doklads = data);
   }  
 }
