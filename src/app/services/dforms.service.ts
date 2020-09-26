@@ -18,7 +18,7 @@ export class DformsService {
     });
    }
 
-  getAllDforms(idObjGroup:string,isIncludedDel:boolean,groupName:string): any {
+  getAllDforms0(idObjGroup:string,isIncludedDel:boolean,groupName:string): any {
     let urlzap:string=`${environment.apiUrl}/form/getListByObjGroupId?idObjGroup=`+idObjGroup+`&isIncludedDel=`+isIncludedDel;
     urlzap='assets/forms.json'
     return this.httpClient.get<Dforms[]>(urlzap, { headers: this.corsHeaders })

@@ -1,10 +1,19 @@
 <div class="content" role="main">
   <form name="newform" (ngSubmit)="onSubmit()">
-    <p-scrollPanel [style]="{width: '100%', height: '578px'}">
+    
       <div>
         <div *ngFor="let doklad of doklads">
             <h5>Группа доклада</h5>
-            <p-dropdown [options]="dgroupsel" [(ngModel)]="selectedGroup" name="fkObjGroup" placeholder="Выберите группу" optionLabel="label" (onChange)="changeGroup(selectedGroup)"  [style]="{'width':'600px'}"></p-dropdown>
+            <p-dropdown [options]="dgroupsel" [(ngModel)]="selectedGroup" name="fkObjGroup" placeholder="Выберите группу" (onChange)="changeGroup($event)" [style]="{'width':'600px'}">
+                <ng-template let-option pTemplate="item">
+                    <div>
+                        <div [ngStyle]="option.disabled? {'color': '#ccc', 'cursor': 'default'} : ''" 
+                             [disabled]="option.disabled">
+                         {{option.label}} 
+                        </div>
+                    </div>
+                </ng-template>
+            </p-dropdown>
 
             <h5>Полное название доклада</h5>
             <input type="text" pInputText [(ngModel)]="doklad.fullName" name="fullName" value="{{doklad.fullName}}" [style]="{'width':'600px'}"> 
@@ -16,7 +25,7 @@
             <input type="text" pInputText [(ngModel)]="doklad.customer" name="customer" value="{{doklad.customer}}" [style]="{'width':'600px'}"> 
         
             <h5>Основание создания доклада</h5>
-            <input type="text" pInputText name="reason" [style]="{'width':'600px'}"> 
+            <input type="text" pInputText [(ngModel)]="reason" name="reason" [style]="{'width':'600px'}"> 
         
             <h5>Права</h5>
             <p-dropdown [options]="privilegesel" [(ngModel)]="selectedPrivilege" name="privilege" defaultLabel="Выберите права" optionLabel="label" (onChange)="changePriv(selectedPrivilege)" [style]="{'width':'600px'}"></p-dropdown>
@@ -41,35 +50,45 @@
             </p-calendar>
 
             <h5>Титульный лист</h5>
-            <p-fileUpload mode="basic" name="titlefile"  maxFileSize="1000000" (onUpload)="onBasicUpload($event)" chooseLabel="Выбрать файл"></p-fileUpload>
+            <p-fileUpload mode="basic" name="titlefile" accept="application/vnd.oasis.opendocument.spreadsheet" maxFileSize="1000000" (onUpload)="onBasicUpload($event)" chooseLabel="Выбрать файл"></p-fileUpload>
 
             <br>&nbsp;
             <h5>Список доступных для выбора отчётных форм</h5> 
             <h6>
                 Отметьте галочкой отчётные формы, которые войдут в доклад. <br>
                 Нажмите "Корзину" в заголовке таблицы, чтобы убрать лишние отчёты. <br>
-                Путём перетаскивания за элемент в первом столбце, упорядочите отчёты в нужной последовательности.
+                Путём перетаскивания за элемент в первом столбце, упорядочите отчёты в нужной последовательности. <br>
+                Для автоматической нумерации листов, выделите все отчёты и нажмите "Корзину".
             </h6> 
             <p-toolbar styleClass="p-mb-4">
                 <ng-template pTemplate="left">
                     <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteUnSelectedForms()" [disabled]="!listSelectedForms || !listSelectedForms.length"></button>
                 </ng-template>
             </p-toolbar> 
-            <p-table [value]="listExistingForms" [(selection)]="listSelectedForms" [columns]="cols" [reorderableColumns]="true" styleClass="p-datatable-striped"  dataKey="id"
-              [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers"
-              [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-              [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
+            <p-table #dt [value]="listExistingForms" [(selection)]="listSelectedForms" [columns]="cols" [reorderableColumns]="true" styleClass="p-datatable-striped"  dataKey="id"
+              [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50,100]" [loading]="loading" styleClass="p-datatable-customers"
+              [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [autoLayout]="true"
+              [filterDelay]="0" [globalFilterFields]="['name']" sortField="name" sortMode="single">
+              <ng-template pTemplate="caption">
+                <div style="text-align: right">
+                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="50" placeholder="Поиск по названию отчёта" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                     style="width:auto">
+                </div>
+              </ng-template>
               <ng-template pTemplate="header" let-columns>
                   <tr>
                       <th style="width:3rem"></th>
                       <th style="width: 3rem">
                           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                       </th>
-                      <th *ngFor="let col of columns" pReorderableColumn>
+                      <th *ngFor="let col of columns" pReorderableColumn [pSortableColumn]="col.field">
                           {{col.header}}
+                          <p-sortIcon [field]="col.field"></p-sortIcon>
                       </th>
                       <th>Название в оглавлении</th>
                       <th>Лист</th>
+                      <th>#</th>
                   </tr>
               </ng-template>
               <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
@@ -86,23 +105,24 @@
                       <td pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
-                                <input pInputText type="text" [(ngModel)]="doklad.listDokladOgl.oglName" [style]="{'width':'120px'}">
+                                <input pInputText type="text" [(ngModel)]="rowData.oglName" [ngModelOptions]="{standalone: true}" [style]="{'width':'120px'}">
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{doklad.listDokladOgl.oglName}}
+                                {{rowData.oglName}}
                             </ng-template>
                         </p-cellEditor>
                       </td>
                       <td pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
-                                <input pInputText type="text" [(ngModel)]="doklad.listDokladOgl.listName" [style]="{'width':'120px'}">
+                                <input pInputText type="text" [(ngModel)]="rowData.list" [ngModelOptions]="{standalone: true}" [style]="{'width':'120px'}">
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{doklad.listDokladOgl.listName}}
+                                {{rowData.list}}
                             </ng-template>
                         </p-cellEditor>
                       </td>
+                      <td><p-button icon="pi pi-eye" title='Смотреть отчёт' (click)="showDoklad(rowData.id)" styleClass="p-button-primery"></p-button></td>
                   </tr>
               </ng-template>
             </p-table>
@@ -112,7 +132,7 @@
       </div><br>
       
 
-    </p-scrollPanel>
+      
     <br><button type="submit" pButton  label="Сохранить"></button>
   </form>  
 </div>

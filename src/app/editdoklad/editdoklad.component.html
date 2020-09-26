@@ -52,7 +52,13 @@
 
         <p-dialog header="Переместить доклад" [(visible)]="displayM2" [modal]="true" [style]="{width: '550px'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
             <h5>Группа доклада</h5>
-            <p-dropdown [options]="dgroupsel" [(ngModel)]="grsel" name="fkObjGroup" placeholder="Выберите группу" optionLabel="label" (onChange)="changeGroup(grsel)" [style]="{'width':'500px'}"></p-dropdown>
+            <p-dropdown [options]="dgroupsel" [(ngModel)]="grsel" name="fkObjGroup" placeholder="Выберите группу" (onChange)="changeGroup($event)" [style]="{'width':'500px'}">
+              <ng-template let-option pTemplate="item">
+                <div>
+                    <div [ngStyle]="option.disabled? {'color': '#ccc', 'cursor': 'default'} : ''" [disabled]="option.disabled"> {{option.label}} </div>
+                </div>
+            </ng-template>
+            </p-dropdown>
             <br>
             <h5>Позиция доклада в группе</h5>
               <p-inputNumber [(ngModel)]="doklad.groupPos" name="groupPos" value="{{doklad.groupPos}}" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
