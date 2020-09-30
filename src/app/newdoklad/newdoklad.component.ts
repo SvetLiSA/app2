@@ -8,7 +8,9 @@ import { Dgroups } from '../models/dgroups';
 import { Doklads } from '../models/doklads';
 import { SelectItem } from 'primeng/api';
 //import { empty } from 'rxjs';
+//https://stackblitz.com/edit/primeng-dropdown-gntw6t
 
+//reportHour
 @Component({
   selector: 'app-newdoklad',
   templateUrl: './newdoklad.component.html',
@@ -17,27 +19,27 @@ import { SelectItem } from 'primeng/api';
 export class NewdokladComponent implements OnInit {
   id: string="0";
   listExistingForms: any=[];
-  listForms: any=[];
   listSelectedForms: any=[];
   listDokladOgl: any=[];
-  todayDate : string;
-  val: Date;
-  dgroups:Dgroups[]=[];
-  dgroupsel:any=[];
-  fgroupsel:any=[];
-  grId:string;
-  doklads:Doklads[]=[];
-  dokladsDTO:string;
-  reason:string;
-  selectedGroup: string;
+  listDoklad: any=[];
+  dgroupsel: any=[];
+  //fgroupsel: any=[];
+  cols: any=[];
   privilegesel: any;
+  ru: any;
+  dgroups: Dgroups[]=[];
+  doklads: Doklads[]=[];
+  //val: Date;
+  uploadedFiles: File;
+  todayDate: string;
+  //grId: string;
+  dokladsDTO: string;
+  reason: string;
+  selectedGroup: string;
   selectedPrivilege: string;
-  version: string="1.0";
   dateStart: string;
   dateEnd: string="2100-12-31 00:00:00";
-  uploadedFiles: File;
-  ru: any;
-  cols: any[];
+  //version: string="1.0";
 
   constructor(private route: ActivatedRoute, 
               private dgroupService : DgroupsService,  
@@ -48,14 +50,13 @@ export class NewdokladComponent implements OnInit {
     this.todayDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd H:mm:ss');
     this.dateStart = this.datePipe.transform(new Date(), 'yyyy-MM-dd H:mm:ss');
     this.privilegesel=[
-      { label:"Общий доступ", value: 1 },
-      { label:"КТ", value: 2 }
+      { label:"Выбрать...", value: "" },
+      { label:"Общий доступ", value: "1" },
+      { label:"КТ", value: "2" }
     ];
-    //--------------------------------------
-    this.dgroupService.getOptions(true, this.todayDate, 'doklad').then(data => this.dgroupsel = data);   
-    this.dgroupService.getAllForms(true, this.todayDate).then(data => this.listExistingForms = data);
-    //this.listExistingForms = this.fgroupsel;
-    
+    //--------------------------------------    
+    this.dgroupService.getOptions(true, this.todayDate, 'doklad').then(res => this.dgroupsel = res);
+    this.dgroupService.getAllForms(true, this.todayDate).then(data => this.listExistingForms = data );
    }
 
   ngOnInit(): void {
@@ -92,34 +93,39 @@ export class NewdokladComponent implements OnInit {
       { field: 'grName', header: 'Группа' },
       { field: 'name', header: 'Название отчёта' },
       { field: 'activeTip',  header: 'Активен?' },
-      { field: 'visibleTip', header: 'Опубл.?' }     
-      //,{ field: 'id', header: 'ID' }
+      { field: 'visibleTip', header: 'Опубл.?' } 
     ];
 
     if(this.id)
     {
-      this.dokladService.getDoklad(this.id).then(data => this.doklads = data);
+      this.dokladService.getDoklad(this.id).then(data => {         
+        this.doklads = data; 
+        setTimeout(() => {   
+          this.dgroupService.getOptions(true, this.todayDate, 'doklad').then(res => this.dgroupsel = res );             
+          this.selectedPrivilege = this.privilegesel[this.privilegesel.findIndex(obj => obj.value === this.doklads[0].privilege)];
+          this.selectedGroup=this.dgroupsel[this.dgroupsel.findIndex(obj => obj.value === this.doklads[0].fkObjGroup)]; 
+          if(Array.isArray(this.doklads[0].listDokladOgl)) {
+            for (let k = 0; k < this.doklads[0].listDokladOgl.length; k++) {
+              if(Array.isArray(this.doklads[0].listDokladOgl[k].listDokladLinkForm)) {
+                if (this.listExistingForms.findIndex(obj => obj.id === this.doklads[0].listDokladOgl[k].listDokladLinkForm[0].id) != -1)
+                {
+                  this.listSelectedForms.push(this.listExistingForms[this.listExistingForms.findIndex(obj => obj.id === this.doklads[0].listDokladOgl[k].listDokladLinkForm[0].id)]);
+                }
+                console.log(this.listSelectedForms);
+              }              
+            }
+          }
+
+        }, 1000);
+      });       
     }
     else
     {      
       this.doklads = this.dokladService.emptyDoklad();
-      this.listSelectedForms = [];
+      //this.listSelectedForms = [];
     }
     
-    if(this.doklads[0])
-    {
-      //console.log("nnn");
-      this.selectedGroup=this.doklads[0].fkObjGroup;
-      //this.dgroupsel.value=this.selectedGroup;
-      this.selectedPrivilege=this.doklads[0].privilege;
-      //this.privilegesel.value=this.selectedPrivilege;
-      //console.log(this.selectedPrivilege);
-      this.listSelectedForms.push(this.doklads[0].listDokladOgl);
-    }
-    
-    
-
-  }
+  } //onInit
 
   onUpload(event) {
     for(let file of event.files) {
@@ -127,15 +133,10 @@ export class NewdokladComponent implements OnInit {
     }
   }
 
-  changeGroup(changedValue){
-    console.log(changedValue.value);
-    this.doklads[0].fkObjGroup=changedValue.value;
-  }
-  
-  changePriv(changedValue){
-    console.log(changedValue.value);
-    this.doklads[0].privilege=changedValue.value;
-  }
+  changeGroup(changedValue){ this.doklads[0].fkObjGroup=changedValue.value; }  
+  changeDts(changedValue:string){ this.doklads[0].dateStart=new Date(changedValue); }  
+  changeDte(changedValue:string){ this.doklads[0].dateEnd=new Date(changedValue); }  
+  changePriv(changedValue){ this.doklads[0].privilege=changedValue.value; }
 
   deleteUnSelectedForms() {
     this.listExistingForms = this.listExistingForms.filter(val => this.listSelectedForms.includes(val));
@@ -150,33 +151,35 @@ export class NewdokladComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.listExistingForms);
-
-    /*
-    {"customer":"Заказчик",
-     "dateEnd":"2120-12-31 14:50:47",
-     "dateStart":"2020-09-24 14:50:47",
-     "fkObjGroup":"1",
-     "fullName":"Диспетчерский доклад",
-     "groupPos":"1",
-     "idDor":"61",
-     "privilege":1,
-     "shortName":"ДД",
-     "version":"1.0",
-     "listDokladOgl":
-        [{"listName":"лист1",
-          "listPos":1,
-          "oglName":"Справка",
-          "listDokladLinkForm":[{"idFormChain": "1","reportHour": 10}]
+    this.listDokladOgl=[];
+    for (let k = 0; k < this.listExistingForms.length; k++) {
+      this.listDokladOgl.push({
+        listName : this.listExistingForms[k].list,
+        listPos : this.listExistingForms[k].listPos,
+        oglName : this.listExistingForms[k].oglName,
+        listDokladLinkForm : [{
+          idFormChain : this.listExistingForms[k].id,
+          reportHour : 1
         }]
+      });
+      this.listDoklad=[];
+      this.listDoklad.push({
+        customer : this.doklads[0].customer,
+        dateEnd : this.datePipe.transform(this.doklads[0].dateEnd, 'yyyy-MM-dd H:mm:ss'),
+        dateStart : this.datePipe.transform(this.doklads[0].dateStart, 'yyyy-MM-dd H:mm:ss'),
+        fkObjGroup : this.doklads[0].fkObjGroup,
+        fullName : this.doklads[0].fullName,
+        groupPos : this.doklads[0].groupPos,
+        idDor : this.doklads[0].idDor,
+        privilege : this.doklads[0].privilege,
+        shortName : this.doklads[0].shortName,
+        version : this.doklads[0].version,
+        listDokladOgl : this.listDokladOgl
+      });
     }
-    */
-    this.listDokladOgl=this.listSelectedForms;
-    //this.dokladsDTO=JSON.stringify(this.listExistingForms);
+    this.dokladsDTO=JSON.stringify(this.listDoklad);
+    console.log(this.dokladsDTO);
     this.dokladService.newDoklad(this.dokladsDTO, this.uploadedFiles, this.reason);
-    //console.log(this.doklads); 
-    //console.log(this.listSelectedForms); 
   }
-
 
 }

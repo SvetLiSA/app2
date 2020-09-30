@@ -156,7 +156,7 @@ export class DokladsService {
       "dateDelete": null,
       "dateEnd": "2120-12-31T04:59:59.396Z",
       "dateStart": new Date(),
-      "fkObjGroup": "",
+      "fkObjGroup": "0",
       "fullName": "Полное название доклада",
       "groupPos": 0,
       "id": null,

@@ -2,7 +2,7 @@
   {
     "id": "8a488b44740b8ec701740b8fe5e30000",
     "idDokladChain": "889d5d92-48aa-440f-9f86-bfa0e9451c8d",
-    "fkObjGroup": "1",
+    "fkObjGroup": "8a488b4473a1a4b20173a1a614de0004",
     "idDor": "17",
     "groupPos": 1,
     "shortName": "ДД",
@@ -11,7 +11,7 @@
     "idAuthor": "idAuthor",
     "activeTip": null,
     "visibleTip": true,
-    "privilege": null,
+    "privilege": "2",
     "version": "1.0",
     "dateStart": "2020-08-17 12:44:35",
     "dateEnd": "2020-08-22 12:44:35",
@@ -22,7 +22,10 @@
       {
         "fkDoklad": "1",
         "id": "76756rty",
-        "listDokladLinkForm": [],
+        "listDokladLinkForm": [
+          {"fkDokladOgl": "ppppp",
+          "id": "10",
+          "idFormChain": "10"}],
         "listName": "Лист 1",
         "listPos": 1,
         "oglName": "Справка 1"

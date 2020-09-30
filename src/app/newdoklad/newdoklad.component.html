@@ -4,15 +4,16 @@
       <div>
         <div *ngFor="let doklad of doklads">
             <h5>Группа доклада</h5>
-            <p-dropdown [options]="dgroupsel" [(ngModel)]="selectedGroup" name="fkObjGroup" placeholder="Выберите группу" (onChange)="changeGroup($event)" [style]="{'width':'600px'}">
-                <ng-template let-option pTemplate="item">
-                    <div>
-                        <div [ngStyle]="option.disabled? {'color': '#ccc', 'cursor': 'default'} : ''" 
-                             [disabled]="option.disabled">
-                         {{option.label}} 
-                        </div>
-                    </div>
-                </ng-template>
+            <p-dropdown [options]="dgroupsel" [(ngModel)]="selectedGroup" 
+              [(disabled)]="dgroupsel.disabled" name="fkObjGroup" 
+              placeholder="Выберите группу" optionLabel="label" 
+              (onChange)="changeGroup($event)" dataKey="value" 
+              [style]="{'width':'600px'}">
+              <ng-template let-option pTemplate="item">
+                <div [ngStyle]="option.disabled? {'color': '#ccc', 'cursor': 'default'} : ''" [disabled]="option.disabled">
+                    {{option.label}}
+                </div>
+              </ng-template> 
             </p-dropdown>
 
             <h5>Полное название доклада</h5>
@@ -28,7 +29,7 @@
             <input type="text" pInputText [(ngModel)]="reason" name="reason" [style]="{'width':'600px'}"> 
         
             <h5>Права</h5>
-            <p-dropdown [options]="privilegesel" [(ngModel)]="selectedPrivilege" name="privilege" defaultLabel="Выберите права" optionLabel="label" (onChange)="changePriv(selectedPrivilege)" [style]="{'width':'600px'}"></p-dropdown>
+            <p-dropdown [options]="privilegesel" [(ngModel)]="selectedPrivilege" name="privilege" defaultLabel="Выберите права" optionLabel="label" (onChange)="changePriv(selectedPrivilege)" dataKey="value" [style]="{'width':'600px'}"></p-dropdown>
 
             <h5>Позиция доклада в группе</h5>
             <p-inputNumber [(ngModel)]="doklad.groupPos" name="groupPos" value="{{doklad.groupPos}}" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
@@ -38,14 +39,14 @@
             <input type="text" pInputText [(ngModel)]="doklad.version" name="version" value="{{doklad.version}}" [style]="{'width':'255px'}"> 
         
             <h5>Дата начала действия доклада</h5>
-            <p-calendar id="dateStart"  [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="2020:2200"
-                        class="col-xs-12" [showOnFocus]="false" name="dateStart" mask="9999-99-99 29:59:59" placeholder={{doklad.dateStart}}
+            <p-calendar id="dateStart" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="2020:2200"
+                        class="col-xs-12" [showOnFocus]="false" name="dateStart" mask="9999-99-99 29:59:59" placeholder={{doklad.dateStart}} (onSelect)="changeDts($event)"
                         required="true" showTime="true" hourFormat="24" [locale]="ru"  readonlyInput="readonlyInput" dateFormat="yy-mm-dd" [style]="{'width':'255px'}">
             </p-calendar>
             
             <h5>Дата окончания действия доклада</h5>
             <p-calendar id="dateEnd" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="2020:2200"
-                        class="col-xs-12" [showOnFocus]="false" name="dateEnd" mask="9999-99-99 29:59:59" placeholder={{doklad.dateEnd}}
+                        class="col-xs-12" [showOnFocus]="false" name="dateEnd" mask="9999-99-99 29:59:59" placeholder={{doklad.dateEnd}} (onSelect)="changeDte($event)"
                         required="true" showTime="true" hourFormat="24" [locale]="ru"  readonlyInput="readonlyInput" dateFormat="yy-mm-dd" [style]="{'width':'255px'}">
             </p-calendar>
 
@@ -65,10 +66,24 @@
                     <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteUnSelectedForms()" [disabled]="!listSelectedForms || !listSelectedForms.length"></button>
                 </ng-template>
             </p-toolbar> 
-            <p-table #dt [value]="listExistingForms" [(selection)]="listSelectedForms" [columns]="cols" [reorderableColumns]="true" styleClass="p-datatable-striped"  dataKey="id"
-              [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50,100]" [loading]="loading" styleClass="p-datatable-customers"
-              [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [autoLayout]="true"
-              [filterDelay]="0" [globalFilterFields]="['name']" sortField="name" sortMode="single">
+            <p-table #dt [value]="listExistingForms" 
+                         [(selection)]="listSelectedForms" 
+                         [columns]="cols" 
+                         [reorderableColumns]="true" 
+                         styleClass="p-datatable-striped"  
+                         dataKey="id"
+                         [rows]="10" 
+                         [showCurrentPageReport]="true" 
+                         [rowsPerPageOptions]="[10,25,50,100]" 
+                         [loading]="loading" 
+                         [paginator]="true" 
+                         [totalRecords]=dt.value.length
+                         currentPageReportTemplate="Показаны с {first} по {last} из {totalRecords} записей" 
+                         [autoLayout]="true"
+                         [filterDelay]="0" 
+                         [globalFilterFields]="['name']" 
+                         sortField="name" 
+                         sortMode="single">
               <ng-template pTemplate="caption">
                 <div style="text-align: right">
                     <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -99,7 +114,7 @@
                       <td>
                           <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
                       </td>
-                      <td *ngFor="let col of columns">
+                      <td *ngFor="let col of columns"  pTooltip="{{rowData[col.field]}}">
                           {{rowData[col.field]}}
                       </td>
                       <td pEditableColumn>

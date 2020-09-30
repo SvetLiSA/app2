@@ -1,0 +1,225 @@
+﻿{
+  "id": "1",
+  "fkObjGroup": null,
+  "objType": "",
+  "name": "string",
+  "pos": 1,
+  "idDor": "1",
+  "idAuthorCreate": "1",
+  "authorCreate": {
+    "id": "1",
+    "name": "Иван",
+    "surName": "Иванов",
+    "secondName": "Иванович",
+    "workPosition": "Технолог 1 категории",
+    "organizationName": "ГВЦ ОАО \"РЖД\""
+  },
+  "idAuthorDelete": "1",
+  "authorDelete": {
+    "id": "1",
+    "name": "Иван",
+    "surName": "Иванов",
+    "secondName": "Иванович",
+    "workPosition": "Технолог 1 категории",
+    "organizationName": "ГВЦ ОАО \"РЖД\""
+  },
+  "activeTip": null,
+  "privilege": null,
+  "dateCreate": "2020-09-27 13:45:00",
+  "dateDelete": null,
+  "corTip": "I",
+  "listChildrenObjGroup": [
+    {
+      "id": "8a488b4473e240420173e2405d750000",
+      "fkObjGroup": "1",
+      "objType": "form",
+      "name": "string",
+      "pos": 0,
+      "idDor": "string",
+      "idAuthorCreate": "string",
+      "authorCreate": {
+        "id": "string",
+        "name": "Иван",
+        "surName": "Иванов",
+        "secondName": "Иванович",
+        "workPosition": "Технолог 1 категории",
+        "organizationName": "ГВЦ ОАО \"РЖД\""
+      },
+      "idAuthorDelete": "string",
+      "authorDelete": {
+        "id": "string",
+        "name": "Иван",
+        "surName": "Иванов",
+        "secondName": "Иванович",
+        "workPosition": "Технолог 1 категории",
+        "organizationName": "ГВЦ ОАО \"РЖД\""
+      },
+      "activeTip": true,
+      "privilege": null,
+      "dateCreate": "2020-08-12 10:32:52",
+      "dateDelete": null,
+      "corTip": "I",
+      "listChildrenObjGroup": []
+    },
+    {
+      "id": "8a488b44739ff16201739ff1a3530000",
+      "fkObjGroup": "1",
+      "objType": "form",
+      "name": "2",
+      "pos": 1,
+      "idDor": "2",
+      "idAuthorCreate": "2",
+      "authorCreate": {
+        "id": "2",
+        "name": "Иван",
+        "surName": "Иванов",
+        "secondName": "Иванович",
+        "workPosition": "Технолог 1 категории",
+        "organizationName": "ГВЦ ОАО \"РЖД\""
+      },
+      "idAuthorDelete": "2",
+      "authorDelete": {
+        "id": "2",
+        "name": "Иван",
+        "surName": "Иванов",
+        "secondName": "Иванович",
+        "workPosition": "Технолог 1 категории",
+        "organizationName": "ГВЦ ОАО \"РЖД\""
+      },
+      "activeTip": false,
+      "privilege": null,
+      "dateCreate": "2020-07-30 13:11:02",
+      "dateDelete": null,
+      "corTip": "I",
+      "listChildrenObjGroup": []
+    },
+    {
+      "id": "8a488b4473a026e40173a02b306b0000",
+      "fkObjGroup": "1",
+      "objType": "form",
+      "name": "2",
+      "pos": 1,
+      "idDor": "2",
+      "idAuthorCreate": "2",
+      "authorCreate": {
+        "id": "2",
+        "name": "Иван",
+        "surName": "Иванов",
+        "secondName": "Иванович",
+        "workPosition": "Технолог 1 категории",
+        "organizationName": "ГВЦ ОАО \"РЖД\""
+      },
+      "idAuthorDelete": "2",
+      "authorDelete": {
+        "id": "2",
+        "name": "Иван",
+        "surName": "Иванов",
+        "secondName": "Иванович",
+        "workPosition": "Технолог 1 категории",
+        "organizationName": "ГВЦ ОАО \"РЖД\""
+      },
+      "activeTip": false,
+      "privilege": null,
+      "dateCreate": "2020-07-30 13:11:02",
+      "dateDelete": null,
+      "corTip": "I",
+      "listChildrenObjGroup": []
+    },
+    {
+      "id": "8a488b4473e23d310173e23d48be0000",
+      "fkObjGroup": "1",
+      "objType": "form",
+      "name": "string",
+      "pos": 0,
+      "idDor": "string",
+      "idAuthorCreate": "string",
+      "authorCreate": {
+        "id": "string",
+        "name": "Иван",
+        "surName": "Иванов",
+        "secondName": "Иванович",
+        "workPosition": "Технолог 1 категории",
+        "organizationName": "ГВЦ ОАО \"РЖД\""
+      },
+      "idAuthorDelete": "string",
+      "authorDelete": {
+        "id": "string",
+        "name": "Иван",
+        "surName": "Иванов",
+        "secondName": "Иванович",
+        "workPosition": "Технолог 1 категории",
+        "organizationName": "ГВЦ ОАО \"РЖД\""
+      },
+      "activeTip": true,
+      "privilege": null,
+      "dateCreate": "2020-08-12 10:32:52",
+      "dateDelete": null,
+      "corTip": "I",
+      "listChildrenObjGroup": []
+    },
+    {
+      "id": "8a488b4473e23aa80173e23c4bfd0001",
+      "fkObjGroup": "1",
+      "objType": "form",
+      "name": "string",
+      "pos": 0,
+      "idDor": "string",
+      "idAuthorCreate": "string",
+      "authorCreate": {
+        "id": "string",
+        "name": "Иван",
+        "surName": "Иванов",
+        "secondName": "Иванович",
+        "workPosition": "Технолог 1 категории",
+        "organizationName": "ГВЦ ОАО \"РЖД\""
+      },
+      "idAuthorDelete": "string",
+      "authorDelete": {
+        "id": "string",
+        "name": "Иван",
+        "surName": "Иванов",
+        "secondName": "Иванович",
+        "workPosition": "Технолог 1 категории",
+        "organizationName": "ГВЦ ОАО \"РЖД\""
+      },
+      "activeTip": true,
+      "privilege": null,
+      "dateCreate": "2020-08-12 10:32:52",
+      "dateDelete": null,
+      "corTip": "I",
+      "listChildrenObjGroup": []
+    },
+    {
+      "id": "8a488b4473a1a4b20173a1a614de0004",
+      "fkObjGroup": "1",
+      "objType": "form",
+      "name": "string",
+      "pos": 0,
+      "idDor": "string",
+      "idAuthorCreate": "string",
+      "authorCreate": {
+        "id": "string",
+        "name": "Иван",
+        "surName": "Иванов",
+        "secondName": "Иванович",
+        "workPosition": "Технолог 1 категории",
+        "organizationName": "ГВЦ ОАО \"РЖД\""
+      },
+      "idAuthorDelete": "string",
+      "authorDelete": {
+        "id": "string",
+        "name": "Иван",
+        "surName": "Иванов",
+        "secondName": "Иванович",
+        "workPosition": "Технолог 1 категории",
+        "organizationName": "ГВЦ ОАО \"РЖД\""
+      },
+      "activeTip": true,
+      "privilege": null,
+      "dateCreate": "2020-07-30 15:35:07",
+      "dateDelete": null,
+      "corTip": "I",
+      "listChildrenObjGroup": []
+    }
+  ]
+}

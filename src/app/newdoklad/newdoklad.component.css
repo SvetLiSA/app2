@@ -1,0 +1,5 @@
+.ui-dropdown-item.ui-corner-all.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    color: lightgrey;
+  }

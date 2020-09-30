@@ -72,11 +72,17 @@ export class DgroupsService {
         let raw_json:Dgroups[] = [res];
         let opt_list: SelectItem[]=[];
         for (let k = 0; k < raw_json.length; k++) {  
-          if(Array.isArray(raw_json[k].listChildrenObjGroup)){       
+          if(Array.isArray(raw_json[k].listChildrenObjGroup)){ 
+            raw_json[k].activeTip ?  
+            opt_list.push({
+              label: raw_json[k].name,
+              value: raw_json[k].id
+            })
+            :     
             opt_list.push({
               label: raw_json[k].name,
               value: raw_json[k].id,
-              disabled: !raw_json[k].activeTip
+              disabled: true
             });
             this.get_subgroup_option(opt_list, raw_json[k].listChildrenObjGroup, "--");
           }                           
@@ -91,11 +97,17 @@ export class DgroupsService {
 
   get_subgroup_option(subgr:SelectItem[], grdata:Dgroups[], ot:string): void {       
     for (var i = 0; i < grdata.length; i++)
-      {	  
+      {	 
+        grdata[i].activeTip ?  
+        subgr.push({
+          label:ot+grdata[i].name, 
+          value: grdata[i].id
+        })
+        :
         subgr.push({
           label:ot+grdata[i].name, 
           value: grdata[i].id,
-          disabled: !grdata[i].activeTip
+          disabled: true
         });
         if(Array.isArray(grdata[i].listChildrenObjGroup)){                     
           this.get_subgroup_option(subgr, grdata[i].listChildrenObjGroup, ot+"--");
@@ -135,7 +147,7 @@ export class DgroupsService {
               let raw_json:Dforms[] = res2;
               for (let k = 0; k < raw_json.length; k++) {
                 listForms.push({
-                  id: raw_json[k].id,
+                  id: raw_json[k].id+k0,
                   idFormChain: raw_json[k].idFormChain,
                   fkObjGroup: raw_json[k].fkObjGroup,
                   grName: opt_list[k0].label,
