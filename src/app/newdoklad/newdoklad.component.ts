@@ -8,9 +8,7 @@ import { Dgroups } from '../models/dgroups';
 import { Doklads } from '../models/doklads';
 import { SelectItem } from 'primeng/api';
 //import { empty } from 'rxjs';
-//https://stackblitz.com/edit/primeng-dropdown-gntw6t
 
-//reportHour
 @Component({
   selector: 'app-newdoklad',
   templateUrl: './newdoklad.component.html',
@@ -23,22 +21,23 @@ export class NewdokladComponent implements OnInit {
   listDokladOgl: any=[];
   listDoklad: any=[];
   dgroupsel: any=[];
-  //fgroupsel: any=[];
   cols: any=[];
   privilegesel: any;
   ru: any;
   dgroups: Dgroups[]=[];
   doklads: Doklads[]=[];
-  //val: Date;
   uploadedFiles: File;
   todayDate: string;
-  //grId: string;
   dokladsDTO: string;
   reason: string;
   selectedGroup: string;
   selectedPrivilege: string;
   dateStart: string;
   dateEnd: string="2100-12-31 00:00:00";
+  reportHour:number=1;
+  //fgroupsel: any=[];
+  //val: Date;
+  //grId: string;
   //version: string="1.0";
 
   constructor(private route: ActivatedRoute, 
@@ -50,9 +49,9 @@ export class NewdokladComponent implements OnInit {
     this.todayDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd H:mm:ss');
     this.dateStart = this.datePipe.transform(new Date(), 'yyyy-MM-dd H:mm:ss');
     this.privilegesel=[
-      { label:"Выбрать...", value: "" },
-      { label:"Общий доступ", value: "1" },
-      { label:"КТ", value: "2" }
+      { label:"Выбрать...", value: 0 },
+      { label:"Общий доступ", value: 1 },
+      { label:"КТ", value: 2 }
     ];
     //--------------------------------------    
     this.dgroupService.getOptions(true, this.todayDate, 'doklad').then(res => this.dgroupsel = res);
@@ -93,7 +92,8 @@ export class NewdokladComponent implements OnInit {
       { field: 'grName', header: 'Группа' },
       { field: 'name', header: 'Название отчёта' },
       { field: 'activeTip',  header: 'Активен?' },
-      { field: 'visibleTip', header: 'Опубл.?' } 
+      { field: 'visibleTip', header: 'Опубл.?' },
+      { field: 'listPos', header: '№пп' }
     ];
 
     if(this.id)
@@ -111,7 +111,7 @@ export class NewdokladComponent implements OnInit {
                 {
                   this.listSelectedForms.push(this.listExistingForms[this.listExistingForms.findIndex(obj => obj.id === this.doklads[0].listDokladOgl[k].listDokladLinkForm[0].id)]);
                 }
-                console.log(this.listSelectedForms);
+                //console.log(this.listSelectedForms);
               }              
             }
           }
@@ -140,9 +140,10 @@ export class NewdokladComponent implements OnInit {
 
   deleteUnSelectedForms() {
     this.listExistingForms = this.listExistingForms.filter(val => this.listSelectedForms.includes(val));
-    this.listSelectedForms = null;    
+    this.listSelectedForms = [];    
     for (let k = 0; k < this.listExistingForms.length; k++) {
       this.listExistingForms[k].list="Лист"+(k+1);
+      this.listExistingForms[k].listPos=k+1;
     }
   }
 
@@ -159,7 +160,7 @@ export class NewdokladComponent implements OnInit {
         oglName : this.listExistingForms[k].oglName,
         listDokladLinkForm : [{
           idFormChain : this.listExistingForms[k].id,
-          reportHour : 1
+          reportHour : this.reportHour
         }]
       });
       this.listDoklad=[];
@@ -173,9 +174,9 @@ export class NewdokladComponent implements OnInit {
         idDor : this.doklads[0].idDor,
         privilege : this.doklads[0].privilege,
         shortName : this.doklads[0].shortName,
-        version : this.doklads[0].version,
         listDokladOgl : this.listDokladOgl
       });
+      //version : this.doklads[0].version,
     }
     this.dokladsDTO=JSON.stringify(this.listDoklad);
     console.log(this.dokladsDTO);

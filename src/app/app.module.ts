@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -33,6 +33,7 @@ import { TreeModule } from 'primeng/tree';
 
 import { DgroupsService } from './services/dgroups.service';
 import { DokladsService } from './services/doklads.service';
+import { JwtInterceptor } from './jwt.interceptor';
 
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
@@ -86,7 +87,12 @@ import { ProsmotrComponent } from './prosmotr/prosmotr.component';
     TooltipModule,
     TreeModule
   ],
-  providers: [ DgroupsService, DokladsService, DatePipe, ConfirmationService ],
+  providers: [ DgroupsService, DokladsService, DatePipe, ConfirmationService,
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: JwtInterceptor,
+    multi: true
+  } ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

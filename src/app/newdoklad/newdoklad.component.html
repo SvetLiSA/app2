@@ -35,9 +35,6 @@
             <p-inputNumber [(ngModel)]="doklad.groupPos" name="groupPos" value="{{doklad.groupPos}}" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
             decrementButtonClass="p-button-primary" incrementButtonClass="p-button-primary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"></p-inputNumber>
         
-            <h5>Версия доклада</h5>
-            <input type="text" pInputText [(ngModel)]="doklad.version" name="version" value="{{doklad.version}}" [style]="{'width':'255px'}"> 
-        
             <h5>Дата начала действия доклада</h5>
             <p-calendar id="dateStart" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="2020:2200"
                         class="col-xs-12" [showOnFocus]="false" name="dateStart" mask="9999-99-99 29:59:59" placeholder={{doklad.dateStart}} (onSelect)="changeDts($event)"
@@ -53,6 +50,10 @@
             <h5>Титульный лист</h5>
             <p-fileUpload mode="basic" name="titlefile" accept="application/vnd.oasis.opendocument.spreadsheet" maxFileSize="1000000" (onUpload)="onBasicUpload($event)" chooseLabel="Выбрать файл"></p-fileUpload>
 
+            <h5>Расчётный час</h5>
+            <p-inputNumber [(ngModel)]="reportHour" name="reportHour" value="{{reportHour}}" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" decimalPlaces="0" [min]="0" [max]="23"
+            decrementButtonClass="p-button-primary" incrementButtonClass="p-button-primary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"></p-inputNumber>
+        
             <br>&nbsp;
             <h5>Список доступных для выбора отчётных форм</h5> 
             <h6>
