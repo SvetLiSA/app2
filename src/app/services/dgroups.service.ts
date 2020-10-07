@@ -19,8 +19,8 @@ export class DgroupsService {
 
   getAllDgroups(isIncludedDel:boolean,dateReport:string,typeTreeElements:string):any {
     let urlzap:string=`${environment.apiUrl}/objGroup/getAllCentralGroup?typeTreeElements=`+typeTreeElements+`&isIncludedDel=`+isIncludedDel+`&dateReport=`+dateReport;
-    urlzap='assets/gr.json';
-    return this.httpClient.get<any>(urlzap, { headers: this.corsHeaders })
+    //urlzap='assets/gr.json';
+    return this.httpClient.get<any>(urlzap)
     .toPromise()
       .then((res) => {
         let raw_json:Dgroups[] = [res];
@@ -65,8 +65,8 @@ export class DgroupsService {
 
   getOptions(isIncludedDel:boolean,dateReport:string,typeTreeElements:string):any {
     let urlzap:string=`${environment.apiUrl}/objGroup/getAllCentralGroup?typeTreeElements=`+typeTreeElements+`&isIncludedDel=`+isIncludedDel+`&dateReport=`+dateReport;
-    urlzap='assets/gr.json';
-    return this.httpClient.get<any>(urlzap, { headers: this.corsHeaders })
+    //urlzap='assets/gr.json';
+    return this.httpClient.get<any>(urlzap)
     .toPromise()
     .then((res) => {
         let raw_json:Dgroups[] = [res];
@@ -118,8 +118,8 @@ export class DgroupsService {
   getAllForms(isIncludedDel:boolean,dateReport:string):any {
     let typeTreeElements:string='form';
     let urlzap:string=`${environment.apiUrl}/objGroup/getAllCentralGroup?typeTreeElements=`+typeTreeElements+`&isIncludedDel=`+isIncludedDel+`&dateReport=`+dateReport;
-    urlzap='assets/grf.json';
-    return this.httpClient.get<any>(urlzap, { headers: this.corsHeaders })
+    //urlzap='assets/grf.json';
+    return this.httpClient.get<any>(urlzap)
     .toPromise()
     .then((res) => {
         let raw_json:Dgroups[] = [res];
@@ -141,17 +141,18 @@ export class DgroupsService {
         for (let k0 = 0; k0 < opt_list.length; k0++) { 
           grId=opt_list[k0].value;
           urlzap2=`${environment.apiUrl}/form/getListByObjGroupId?idObjGroup=`+grId+`&isIncludedDel=true`;
-          urlzap2='assets/forms.json'
-          this.httpClient.get<Dforms[]>(urlzap2, { headers: this.corsHeaders })
+          //urlzap2='assets/forms.json'
+          this.httpClient.get<Dforms[]>(urlzap2)
           .subscribe((res2) => {
               let raw_json:Dforms[] = res2;
               for (let k = 0; k < raw_json.length; k++) {
                 listForms.push({
-                  id: raw_json[k].id+k0,
+                  id: raw_json[k].id,
                   idFormChain: raw_json[k].idFormChain,
                   fkObjGroup: raw_json[k].fkObjGroup,
                   grName: opt_list[k0].label,
                   list: "",
+                  listPos: 0,
                   oglName: raw_json[k].name,
                   idDor: raw_json[k].idDor,
                   pos: raw_json[k].pos,

@@ -12,8 +12,8 @@ export class JwtInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (environment.production === false && environment.accessToken) {
       req = req.clone({ setHeaders: { 'Authorization' : environment.accessToken } });
-      return next.handle(req);
     }
+    return next.handle(req);
   }
   
 }

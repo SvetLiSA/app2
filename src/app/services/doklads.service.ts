@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Doklads } from '../models/doklads';
 
@@ -11,7 +11,7 @@ export class DokladsService {
  
   getAllDoklads(idObjGroup:string,isIncludedDel:boolean):any {
     let urlzap:string=`${environment.apiUrl}/doklad/getListByObjGroupId?idObjGroup=`+idObjGroup+`&isIncludedDel=`+isIncludedDel;
-    urlzap='assets/dokl.json';
+    //urlzap='assets/dokl.json';
     return this.httpClient.get<Doklads[]>(urlzap)
     .toPromise()
       .then((res) => {
@@ -36,7 +36,7 @@ export class DokladsService {
 
   getDoklad(idDoklad:string):any {
     let urlzap:string=`${environment.apiUrl}/doklad/getDoklad?idDoklad=`+idDoklad;
-    urlzap='assets/dokl0.json';
+    //urlzap='assets/dokl0.json';
     return this.httpClient.get<Doklads>(urlzap)
     .toPromise()
       .then((res) => {
@@ -47,14 +47,34 @@ export class DokladsService {
       });
   } 
     
-  getTitlePage(idDoklad:string): any {
-    this.httpClient.get<any>(`${environment.apiUrl}/doklad/getTitlePage?idDoklad=`+idDoklad)
-    .subscribe( data => {
-      console.log(data);
-    },
-    (error: HttpErrorResponse) => {
-    console.log (error.name + ' ' + error.message);
-    });
+  getFileName(response: HttpResponse<Blob>) {
+    let filename: string;
+    try {
+      const contentDisposition: string = response.headers.get('content-disposition');
+      const r = /(?:filename=")(.+)(?:")/
+      filename = r.exec(contentDisposition)[1];
+    }
+    catch (e) {
+      filename = 'myfile.txt'
+    }
+    return filename
+  }
+
+  getTitlePage(idDoklad:string) {
+    this.httpClient.get<Blob>(`${environment.apiUrl}/doklad/getTitlePage?idDoklad=`+idDoklad, { observe: 'response', responseType: 'blob' as 'json' })
+    .subscribe(
+      (response: HttpResponse<Blob>) => {
+        let filename: string = this.getFileName(response)
+        let binaryData = [];
+        binaryData.push(response.body);
+        let downloadLink = document.createElement('a');
+        downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, { type: 'blob' }));
+        downloadLink.setAttribute('download', filename);
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        downloadLink.parentNode.removeChild(downloadLink);
+      }
+    );
   }
   
   getCalcDoklad(idDoklad:string,format:string,dateReport:string): any {

@@ -11,7 +11,7 @@
     "idAuthor": "idAuthor",
     "activeTip": null,
     "visibleTip": true,
-    "privilege": "2",
+    "privilege": 2,
     "version": "1.0",
     "dateStart": "2020-08-17 12:44:35",
     "dateEnd": "2020-08-22 12:44:35",

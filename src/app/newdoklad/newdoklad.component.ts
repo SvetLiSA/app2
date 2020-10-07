@@ -33,7 +33,7 @@ export class NewdokladComponent implements OnInit {
   selectedGroup: string;
   selectedPrivilege: string;
   dateStart: string;
-  dateEnd: string="2100-12-31 00:00:00";
+  dateEnd: string="2100-12-31";
   reportHour:number=1;
   //fgroupsel: any=[];
   //val: Date;
@@ -46,14 +46,17 @@ export class NewdokladComponent implements OnInit {
               private datePipe: DatePipe) { 
     this.id = route.snapshot.params['id'];
     //, private messageService: MessageService
-    this.todayDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd H:mm:ss');
+    this.todayDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd'); // H:mm:ss
     this.dateStart = this.datePipe.transform(new Date(), 'yyyy-MM-dd H:mm:ss');
+
+    //поменять: заполнять из апи получения списка прав
     this.privilegesel=[
       { label:"Выбрать...", value: 0 },
       { label:"Общий доступ", value: 1 },
       { label:"КТ", value: 2 }
     ];
     //--------------------------------------    
+    
     this.dgroupService.getOptions(true, this.todayDate, 'doklad').then(res => this.dgroupsel = res);
     this.dgroupService.getAllForms(true, this.todayDate).then(data => this.listExistingForms = data );
    }
@@ -149,6 +152,7 @@ export class NewdokladComponent implements OnInit {
 
   showDoklad(idf:string) {
     console.log(idf);
+    this.dokladService.getTitlePage(idf);
   }
 
   onSubmit() {
@@ -181,6 +185,7 @@ export class NewdokladComponent implements OnInit {
     this.dokladsDTO=JSON.stringify(this.listDoklad);
     console.log(this.dokladsDTO);
     this.dokladService.newDoklad(this.dokladsDTO, this.uploadedFiles, this.reason);
+    //если id не пуст, то надо вызывать метод updateDoklad и в ДТО добавить id доклада
   }
 
 }

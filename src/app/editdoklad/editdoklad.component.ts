@@ -28,7 +28,7 @@ export class EditdokladComponent implements OnInit {
 
   constructor(private datePipe: DatePipe, private route: ActivatedRoute, private dgroupService : DgroupsService, private dokladService : DokladsService,private primengConfig: PrimeNGConfig) {
     this.id = route.snapshot.params['id'];
-    this.todayDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd H:mm:ss');
+    this.todayDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd'); // H:mm:ss
    }
 
   ngOnInit(): void {
@@ -38,7 +38,7 @@ export class EditdokladComponent implements OnInit {
     this.displayM3=false;
     this.reason="Приказ №";
     this.dokladService.getDoklad(this.id).then(data => this.doklads = data);    
-    this.dgroupService.getOptions(true, this.todayDate, 'doklad').then(data => this.dgroupsel = data);
+    this.dgroupService.getOptions(false, this.todayDate, 'doklad').then(data => this.dgroupsel = data);
 
   }
 

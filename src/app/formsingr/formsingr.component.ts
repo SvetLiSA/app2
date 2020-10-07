@@ -26,7 +26,7 @@ export class FormsingrComponent implements OnInit {
       {label: 'Только опубликованные', value: '2'}, 
       {label: 'Все (с удалёнными)', value: '3', disabled : false}
     ];
-    this.todayDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd H:mm:ss');
+    this.todayDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd'); // H:mm:ss
   }
     
   public paramChange(obj:any){

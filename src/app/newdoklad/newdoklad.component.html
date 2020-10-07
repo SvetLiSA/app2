@@ -48,7 +48,7 @@
             </p-calendar>
 
             <h5>Титульный лист</h5>
-            <p-fileUpload mode="basic" name="titlefile" accept="application/vnd.oasis.opendocument.spreadsheet" maxFileSize="1000000" (onUpload)="onBasicUpload($event)" chooseLabel="Выбрать файл"></p-fileUpload>
+            <p-fileUpload mode="basic" multiple="false" name="titlefile" accept="application/vnd.oasis.opendocument.spreadsheet" maxFileSize="1000000" (onUpload)="onBasicUpload($event)" chooseLabel="Выбрать файл" invalidFileMessage="File is Invalid. Only ODF files are allowed"></p-fileUpload>
 
             <h5>Расчётный час</h5>
             <p-inputNumber [(ngModel)]="reportHour" name="reportHour" value="{{reportHour}}" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" decimalPlaces="0" [min]="0" [max]="23"
@@ -75,7 +75,7 @@
                          dataKey="id"
                          [rows]="10" 
                          [showCurrentPageReport]="true" 
-                         [rowsPerPageOptions]="[10,25,50,100]" 
+                         [rowsPerPageOptions]="[10,25,dt.value.length]" 
                          [loading]="loading" 
                          [paginator]="true" 
                          [totalRecords]=dt.value.length

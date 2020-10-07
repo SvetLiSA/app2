@@ -17,7 +17,7 @@ export class AllgroupsComponent implements OnInit {
   constructor(private dgroupService : DgroupsService, private datePipe: DatePipe) {   }
 
   ngOnInit() {
-    this.todayDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd H:mm:ss');
+    this.todayDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd'); // H:mm:ss
     this.dgroupService.getAllDgroups(true, this.todayDate, 'doklad').then(data => this.dgrtree = data);
   }
     

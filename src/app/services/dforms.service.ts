@@ -20,8 +20,8 @@ export class DformsService {
 
   getAllDforms0(idObjGroup:string,isIncludedDel:boolean,groupName:string): any {
     let urlzap:string=`${environment.apiUrl}/form/getListByObjGroupId?idObjGroup=`+idObjGroup+`&isIncludedDel=`+isIncludedDel;
-    urlzap='assets/forms.json'
-    return this.httpClient.get<Dforms[]>(urlzap, { headers: this.corsHeaders })
+    //urlzap='assets/forms.json'
+    return this.httpClient.get<Dforms[]>(urlzap)
     .toPromise()
       .then((res) => {
         let raw_json:Dforms[] = res;
@@ -72,7 +72,7 @@ export class DformsService {
 
   getPublishedDforms(idObjGroup:string,isIncludedDel:boolean,isAwailable:boolean,dateReport:Date): any {
     let urlzap:string=`${environment.apiUrl}/form/getListPublishedByObjGroupId?idObjGroup=`+idObjGroup+`&isIncludedDel=`+isIncludedDel+`&isAwailable=`+isAwailable+`&dateReport=`+dateReport;
-    return this.httpClient.get<Dforms[]>(urlzap, { headers: this.corsHeaders })
+    return this.httpClient.get<Dforms[]>(urlzap)
     .toPromise()
       .then((res) => {
         return res;
